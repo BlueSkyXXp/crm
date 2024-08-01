@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_businessMapper">
+    
+    <resultMap type="st01_crm_business" id="st01_crm_businessResult">
+        <result property="businessId"    column="business_id"    />
+        <result property="businessName"    column="business_name"    />
+        <result property="money"    column="money"    />
+        <result property="statusId"    column="status_id"    />
+        <result property="nextTime"    column="next_time"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="dealDate"    column="deal_date"    />
+        <result property="discountRate"    column="discount_rate"    />
+        <result property="totalPrice"    column="total_price"    />
+        <result property="source"    column="source"    />
+        <result property="remark"    column="remark"    />
+        <result property="roUserId"    column="ro_user_id"    />
+        <result property="rwUserId"    column="rw_user_id"    />
+        <result property="isEnd"    column="is_end"    />
+        <result property="createdBy"    column="created_by"    />
+        <result property="ownerUserId"    column="owner_user_id"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedBy"    column="updated_by"    />
+        <result property="updatedTime"    column="updated_time"    />
+    </resultMap>
+
+    <sql id="selectst01_crm_businessVo">
+        select business_id, business_name, money, status_id, next_time, customer_id, deal_date, discount_rate, total_price, source, remark, ro_user_id, rw_user_id, is_end, created_by, owner_user_id, created_time, updated_by, updated_time from st01_crm_business
+    </sql>
+
+    <select id="selectst01_crm_businessList" parameterType="st01_crm_business" resultMap="st01_crm_businessResult">
+        <include refid="selectst01_crm_businessVo"/>
+        <where>  
+            <if test="businessName != null  and businessName != ''"> and business_name like concat('%', #{businessName}, '%')</if>
+            <if test="money != null "> and money = #{money}</if>
+            <if test="statusId != null  and statusId != ''"> and status_id = #{statusId}</if>
+            <if test="nextTime != null  and nextTime != ''"> and next_time = #{nextTime}</if>
+            <if test="customerId != null  and customerId != ''"> and customer_id = #{customerId}</if>
+            <if test="dealDate != null  and dealDate != ''"> and deal_date = #{dealDate}</if>
+            <if test="discountRate != null "> and discount_rate = #{discountRate}</if>
+            <if test="totalPrice != null "> and total_price = #{totalPrice}</if>
+            <if test="source != null  and source != ''"> and source = #{source}</if>
+            <if test="roUserId != null  and roUserId != ''"> and ro_user_id = #{roUserId}</if>
+            <if test="rwUserId != null  and rwUserId != ''"> and rw_user_id = #{rwUserId}</if>
+            <if test="isEnd != null  and isEnd != ''"> and is_end = #{isEnd}</if>
+            <if test="createdBy != null  and createdBy != ''"> and created_by = #{createdBy}</if>
+            <if test="ownerUserId != null  and ownerUserId != ''"> and owner_user_id = #{ownerUserId}</if>
+            <if test="createdTime != null  and createdTime != ''"> and created_time = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and updated_by = #{updatedBy}</if>
+            <if test="updatedTime != null  and updatedTime != ''"> and updated_time = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectst01_crm_businessByBusinessId" parameterType="String" resultMap="st01_crm_businessResult">
+        <include refid="selectst01_crm_businessVo"/>
+        where business_id = #{businessId}
+    </select>
+        
+    <insert id="insertst01_crm_business" parameterType="st01_crm_business">
+        insert into st01_crm_business
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="businessId != null">business_id,</if>
+            <if test="businessName != null">business_name,</if>
+            <if test="money != null">money,</if>
+            <if test="statusId != null">status_id,</if>
+            <if test="nextTime != null">next_time,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="dealDate != null">deal_date,</if>
+            <if test="discountRate != null">discount_rate,</if>
+            <if test="totalPrice != null">total_price,</if>
+            <if test="source != null">source,</if>
+            <if test="remark != null">remark,</if>
+            <if test="roUserId != null">ro_user_id,</if>
+            <if test="rwUserId != null">rw_user_id,</if>
+            <if test="isEnd != null">is_end,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="ownerUserId != null">owner_user_id,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="updatedTime != null">updated_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="businessId != null">#{businessId},</if>
+            <if test="businessName != null">#{businessName},</if>
+            <if test="money != null">#{money},</if>
+            <if test="statusId != null">#{statusId},</if>
+            <if test="nextTime != null">#{nextTime},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="dealDate != null">#{dealDate},</if>
+            <if test="discountRate != null">#{discountRate},</if>
+            <if test="totalPrice != null">#{totalPrice},</if>
+            <if test="source != null">#{source},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="roUserId != null">#{roUserId},</if>
+            <if test="rwUserId != null">#{rwUserId},</if>
+            <if test="isEnd != null">#{isEnd},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="ownerUserId != null">#{ownerUserId},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_business" parameterType="st01_crm_business">
+        update st01_crm_business
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="businessName != null">business_name = #{businessName},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="statusId != null">status_id = #{statusId},</if>
+            <if test="nextTime != null">next_time = #{nextTime},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="dealDate != null">deal_date = #{dealDate},</if>
+            <if test="discountRate != null">discount_rate = #{discountRate},</if>
+            <if test="totalPrice != null">total_price = #{totalPrice},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="roUserId != null">ro_user_id = #{roUserId},</if>
+            <if test="rwUserId != null">rw_user_id = #{rwUserId},</if>
+            <if test="isEnd != null">is_end = #{isEnd},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="ownerUserId != null">owner_user_id = #{ownerUserId},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+        </trim>
+        where business_id = #{businessId}
+    </update>
+
+    <delete id="deletest01_crm_businessByBusinessId" parameterType="String">
+        delete from st01_crm_business where business_id = #{businessId}
+    </delete>
+
+    <delete id="deletest01_crm_businessByBusinessIds" parameterType="String">
+        delete from st01_crm_business where business_id in 
+        <foreach item="businessId" collection="array" open="(" separator="," close=")">
+            #{businessId}
+        </foreach>
+    </delete>
+</mapper>

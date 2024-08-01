@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_receivablesMapper">
+    
+    <resultMap type="st01_crm_receivables" id="st01_crm_receivablesResult">
+        <result property="receivablesId"    column="receivables_id"    />
+        <result property="number"    column="number"    />
+        <result property="planId"    column="plan_id"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="contractId"    column="contract_id"    />
+        <result property="contractName"    column="contract_name"    />
+        <result property="returnTime"    column="return_time"    />
+        <result property="returnType"    column="return_type"    />
+        <result property="money"    column="money"    />
+        <result property="num"    column="num"    />
+        <result property="remark"    column="remark"    />
+        <result property="checkStatus"    column="check_status"    />
+        <result property="examineRecordId"    column="examine_record_id"    />
+        <result property="createdBy"    column="created_by"    />
+        <result property="ownerUserId"    column="owner_user_id"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedBy"    column="updated_by"    />
+        <result property="updatedTime"    column="updated_time"    />
+    </resultMap>
+
+    <sql id="selectst01_crm_receivablesVo">
+        select receivables_id, number, plan_id, customer_id, contract_id, return_time, return_type, money, remark, check_status, examine_record_id, created_by, owner_user_id, created_time, updated_by, updated_time from st01_crm_receivables
+    </sql>
+
+    <select id="selectst01_crm_receivablesList" parameterType="st01_crm_receivables" resultMap="st01_crm_receivablesResult">
+        select t.*,t1.contract_name,t2.num from st01_crm_receivables t
+        left join
+        st01_crm_contract t1 on t.contract_id=t1.contract_id
+        left join st01_crm_receivables_plan t2
+        on t.plan_id=t2.plan_id
+        <where>
+            <if test="customerId != null  and customerId != ''"> and t.customer_id = #{customerId}</if>
+            <if test="contractId != null  and contractId != ''"> and t.contract_id = #{contractId}</if>
+            <if test="returnTime != null  and returnTime != ''"> and t.return_time = #{returnTime}</if>
+            <if test="returnType != null  and returnType != ''"> and t.return_type = #{returnType}</if>
+            <if test="checkStatus != null  and checkStatus != ''"> and t.check_status = #{checkStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectst01_crm_receivablesByReceivablesId" parameterType="String" resultMap="st01_crm_receivablesResult">
+        <include refid="selectst01_crm_receivablesVo"/>
+        where receivables_id = #{receivablesId}
+    </select>
+        
+    <insert id="insertst01_crm_receivables" parameterType="st01_crm_receivables">
+        insert into st01_crm_receivables
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="receivablesId != null">receivables_id,</if>
+            <if test="number != null">number,</if>
+            <if test="planId != null">plan_id,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="contractId != null">contract_id,</if>
+            <if test="returnTime != null">return_time,</if>
+            <if test="returnType != null">return_type,</if>
+            <if test="money != null">money,</if>
+            <if test="remark != null">remark,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="examineRecordId != null">examine_record_id,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="ownerUserId != null">owner_user_id,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="updatedTime != null">updated_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="receivablesId != null">#{receivablesId},</if>
+            <if test="number != null">#{number},</if>
+            <if test="planId != null">#{planId},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="contractId != null">#{contractId},</if>
+            <if test="returnTime != null">#{returnTime},</if>
+            <if test="returnType != null">#{returnType},</if>
+            <if test="money != null">#{money},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="examineRecordId != null">#{examineRecordId},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="ownerUserId != null">#{ownerUserId},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_receivables" parameterType="st01_crm_receivables">
+        update st01_crm_receivables
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="number != null">number = #{number},</if>
+            <if test="planId != null">plan_id = #{planId},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="contractId != null">contract_id = #{contractId},</if>
+            <if test="returnTime != null">return_time = #{returnTime},</if>
+            <if test="returnType != null">return_type = #{returnType},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="examineRecordId != null">examine_record_id = #{examineRecordId},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="ownerUserId != null">owner_user_id = #{ownerUserId},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+        </trim>
+        where receivables_id = #{receivablesId}
+    </update>
+
+    <delete id="deletest01_crm_receivablesByReceivablesId" parameterType="String">
+        delete from st01_crm_receivables where receivables_id = #{receivablesId}
+    </delete>
+
+    <delete id="deletest01_crm_receivablesByReceivablesIds" parameterType="String">
+        delete from st01_crm_receivables where receivables_id in 
+        <foreach item="receivablesId" collection="array" open="(" separator="," close=")">
+            #{receivablesId}
+        </foreach>
+    </delete>
+</mapper>

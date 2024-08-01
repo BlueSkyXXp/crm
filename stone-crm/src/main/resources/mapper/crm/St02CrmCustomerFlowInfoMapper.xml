@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St02CrmCustomerFlowInfoMapper">
+    
+    <resultMap type="St02CrmCustomerFlowInfo" id="St02CrmCustomerFlowInfoResult">
+        <result property="id"    column="id"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="sourcePlat"    column="source_plat"    />
+        <result property="targetPlat"    column="target_plat"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <resultMap type="FlowInfoResult" id="FlowInfoResult">
+        <result property="targetPlat"    column="target_plat"    />
+        <result property="count"    column="cnt"    />
+    </resultMap>
+
+    <sql id="selectSt02CrmCustomerFlowInfoVo">
+        select id, customer_id, source_plat, target_plat, user_id, user_name, create_time from st02_crm_customer_flow_info
+    </sql>
+
+    <select id="selectSt02CrmCustomerFlowInfoList" parameterType="St02CrmCustomerFlowInfo" resultMap="St02CrmCustomerFlowInfoResult">
+        <include refid="selectSt02CrmCustomerFlowInfoVo"/>
+        <where>  
+            <if test="customerId != null  and customerId != ''"> and customer_id = #{customerId}</if>
+            <if test="sourcePlat != null  and sourcePlat != ''"> and source_plat = #{sourcePlat}</if>
+            <if test="targetPlat != null  and targetPlat != ''"> and target_plat = #{targetPlat}</if>
+            <if test="userName != null "> and user_name = #{userName}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+        </where>
+    </select>
+
+    <select id="selectCustomerFlowInfoList" parameterType="FlowInfoReqVo" resultMap="FlowInfoResult">
+        select target_plat, count(1) as cnt from st02_crm_customer_flow_info
+        <where>
+            <if test="sourcePlat != null  and sourcePlat != ''"> and source_plat = #{sourcePlat}</if>
+            <if test="targetPlat != null  and targetPlat != ''"> and target_plat = #{targetPlat}</if>
+            <if test="userName != null "> and user_name = #{userName}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="createTime != null "> and create_time  &gt;= #{startTime} and create_time &lt;= #{endTime} </if>
+        </where>
+        group by target_plat
+    </select>
+    
+    <select id="selectSt02CrmCustomerFlowInfoById" parameterType="Long" resultMap="St02CrmCustomerFlowInfoResult">
+        <include refid="selectSt02CrmCustomerFlowInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSt02CrmCustomerFlowInfo" parameterType="St02CrmCustomerFlowInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into st02_crm_customer_flow_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">customer_id,</if>
+            <if test="sourcePlat != null">source_plat,</if>
+            <if test="targetPlat != null">target_plat,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">#{customerId},</if>
+            <if test="sourcePlat != null">#{sourcePlat},</if>
+            <if test="targetPlat != null">#{targetPlat},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSt02CrmCustomerFlowInfo" parameterType="St02CrmCustomerFlowInfo">
+        update st02_crm_customer_flow_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="sourcePlat != null">source_plat = #{sourcePlat},</if>
+            <if test="targetPlat != null">target_plat = #{targetPlat},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_Name = #{userName},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSt02CrmCustomerFlowInfoById" parameterType="Long">
+        delete from st02_crm_customer_flow_info where id = #{id}
+    </delete>
+
+    <delete id="deleteSt02CrmCustomerFlowInfoByIds" parameterType="String">
+        delete from st02_crm_customer_flow_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

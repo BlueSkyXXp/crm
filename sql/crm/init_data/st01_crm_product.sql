@@ -1,0 +1,1 @@
+INSERT INTO stone.st01_crm_product (product_id, product_name, num, unit, price, status, category_id, description, created_by, updated_by, create_time, update_time) VALUES ('820792699438104577', '测试1', '2345234', '个', 234.00, '1', '820782723508428802', null, 'admin', null, null, null);

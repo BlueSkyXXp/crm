@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_contacts_businessMapper">
+    
+    <resultMap type="st01_crm_contacts_business" id="st01_crm_contacts_businessResult">
+        <result property="id"    column="id"    />
+        <result property="businessId"    column="business_id"    />
+        <result property="contactsId"    column="contacts_id"    />
+    </resultMap>
+
+    <sql id="selectst01_crm_contacts_businessVo">
+        select id, business_id, contacts_id from st01_crm_contacts_business
+    </sql>
+
+    <select id="selectst01_crm_contacts_businessList" parameterType="st01_crm_contacts_business" resultMap="st01_crm_contacts_businessResult">
+        <include refid="selectst01_crm_contacts_businessVo"/>
+        <where>  
+            <if test="businessId != null  and businessId != ''"> and business_id = #{businessId}</if>
+            <if test="contactsId != null  and contactsId != ''"> and contacts_id = #{contactsId}</if>
+        </where>
+    </select>
+    
+    <select id="selectst01_crm_contacts_businessById" parameterType="String" resultMap="st01_crm_contacts_businessResult">
+        <include refid="selectst01_crm_contacts_businessVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertst01_crm_contacts_business" parameterType="st01_crm_contacts_business">
+        insert into st01_crm_contacts_business
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="contactsId != null">contacts_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="contactsId != null">#{contactsId},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_contacts_business" parameterType="st01_crm_contacts_business">
+        update st01_crm_contacts_business
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="businessId != null">business_id = #{businessId},</if>
+            <if test="contactsId != null">contacts_id = #{contactsId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletest01_crm_contacts_businessById" parameterType="String">
+        delete from st01_crm_contacts_business where id = #{id}
+    </delete>
+
+    <delete id="deletest01_crm_contacts_businessByIds" parameterType="String">
+        delete from st01_crm_contacts_business where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

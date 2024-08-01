@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.system.mapper.SysFormLogMapper">
+
+    <resultMap type="SysFormLog" id="SysFormLogResult">
+        <result property="customerId"    column="customer_id"    />
+        <result property="businessId"    column="business_id"    />
+        <result property="contactsId"    column="contacts_id"    />
+        <result property="contractId"    column="contract_id"    />
+        <result property="receivablesId"    column="receivables_id"    />
+        <result property="receivablesPlanId"    column="receivables_plan_id"    />
+        <result property="recordId"    column="record_id"    />
+        <result property="leadsId"    column="leads_id"    />
+        <result property="operateParams"    column="operate_params"    />
+        <result property="businessType"    column="business_type"    />
+        <result property="beanClass"    column="bean_class"    />
+        <result property="createdBy"    column="created_by"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedBy"    column="updated_by"    />
+        <result property="updatedTime"    column="updated_time"    />
+    </resultMap>
+
+    <sql id="selectSysFormLogVo">
+        select customer_id, business_id, contacts_id, contract_id, receivables_id, receivables_plan_id, record_id, leads_id, operate_params, business_type ,bean_class,created_by, created_time, updated_by, updated_time from sys_form_log
+    </sql>
+
+    <select id="selectSysFormLogList" parameterType="SysFormLog" resultMap="SysFormLogResult">
+        <include refid="selectSysFormLogVo"/>
+        <where>
+            <if test="customerId != null  and customerId != ''"> and customer_id = #{customerId}</if>
+            <if test="businessId != null  and businessId != ''"> and business_id = #{businessId}</if>
+            <if test="contactsId != null  and contactsId != ''"> and contacts_id = #{contactsId}</if>
+            <if test="contractId != null  and contractId != ''"> and contract_id = #{contractId}</if>
+            <if test="receivablesId != null  and receivablesId != ''"> and receivables_id = #{receivablesId}</if>
+            <if test="receivablesPlanId != null  and receivablesPlanId != ''"> and receivables_plan_id = #{receivablesPlanId}</if>
+            <if test="recordId != null  and recordId != ''"> and record_id = #{recordId}</if>
+            <if test="leadsId != null  and leadsId != ''"> and leads_id = #{leadsId}</if>
+        </where>
+        order by  created_time desc
+    </select>
+
+    <select id="selectSysFormLogByCustomerId" parameterType="String" resultMap="SysFormLogResult">
+        <include refid="selectSysFormLogVo"/>
+        where customer_id = #{customerId}
+    </select>
+
+    <insert id="insertSysFormLog" parameterType="SysFormLog">
+        insert into sys_form_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">customer_id,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="contactsId != null">contacts_id,</if>
+            <if test="contractId != null">contract_id,</if>
+            <if test="receivablesId != null">receivables_id,</if>
+            <if test="receivablesPlanId != null">receivables_plan_id,</if>
+            <if test="recordId != null">record_id,</if>
+            <if test="leadsId != null">leads_id,</if>
+            <if test="operateParams != null">operate_params,</if>
+            <if test="businessType != null">business_type,</if>
+            <if test="beanClass != null">bean_class,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="updatedTime != null">updated_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">#{customerId},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="contactsId != null">#{contactsId},</if>
+            <if test="contractId != null">#{contractId},</if>
+            <if test="receivablesId != null">#{receivablesId},</if>
+            <if test="receivablesPlanId != null">#{receivablesPlanId},</if>
+            <if test="recordId != null">#{recordId},</if>
+            <if test="leadsId != null">#{leadsId},</if>
+            <if test="operateParams != null">#{operateParams},</if>
+            <if test="businessType != null">#{businessType},</if>
+            <if test="beanClass != null">#{beanClass},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysFormLog" parameterType="SysFormLog">
+        update sys_form_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="businessId != null">business_id = #{businessId},</if>
+            <if test="contactsId != null">contacts_id = #{contactsId},</if>
+            <if test="contractId != null">contract_id = #{contractId},</if>
+            <if test="receivablesId != null">receivables_id = #{receivablesId},</if>
+            <if test="receivablesPlanId != null">receivables_plan_id = #{receivablesPlanId},</if>
+            <if test="recordId != null">record_id = #{recordId},</if>
+            <if test="leadsId != null">leads_id = #{leadsId},</if>
+            <if test="operateParams != null">operate_params = #{operateParams},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+        </trim>
+        where customer_id = #{customerId}
+    </update>
+
+    <delete id="deleteSysFormLogByCustomerId" parameterType="String">
+        delete from sys_form_log where customer_id = #{customerId}
+    </delete>
+
+    <delete id="deleteSysFormLogByCustomerIds" parameterType="String">
+        delete from sys_form_log where customer_id in
+        <foreach item="customerId" collection="array" open="(" separator="," close=")">
+            #{customerId}
+        </foreach>
+    </delete>
+</mapper>

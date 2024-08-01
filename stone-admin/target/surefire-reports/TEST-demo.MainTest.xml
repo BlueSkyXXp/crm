@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="0" failures="0" name="demo.MainTest" time="0" errors="0" skipped="0">
+  <properties>
+    <property name="idea.version" value="2023.1.4"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre/lib"/>
+    <property name="java.vm.version" value="25.412-b08"/>
+    <property name="gopherProxySet" value="false"/>
+    <property name="java.vm.vendor" value="Amazon.com Inc."/>
+    <property name="maven.multiModuleProjectDirectory" value="/Users/syhn/IdeaProjects/stone-crm"/>
+    <property name="java.vendor.url" value="https://aws.amazon.com/corretto/"/>
+    <property name="path.separator" value=":"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/Users/syhn/IdeaProjects/stone-crm"/>
+    <property name="java.runtime.version" value="1.8.0_412-b08"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre/lib/endorsed"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.io.tmpdir" value="/var/folders/zl/m29kc7bs2sd8n1n2fg00l5th0000gn/T/"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="maven.ext.class.path" value="/Users/syhn/Library/Application Support/JetBrains/Toolbox/apps/IDEA-U/ch-0/231.9225.16/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven-event-listener.jar"/>
+    <property name="classworlds.conf" value="/Users/syhn/Library/Application Support/JetBrains/Toolbox/apps/IDEA-U/ch-0/231.9225.16/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/bin/m2.conf"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/syhn/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="jansi.passthrough" value="true"/>
+    <property name="maven.conf" value="/Users/syhn/Library/Application Support/JetBrains/Toolbox/apps/IDEA-U/ch-0/231.9225.16/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/conf"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="12.2.1"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="user.home" value="/Users/syhn"/>
+    <property name="user.timezone" value="Asia/Shanghai"/>
+    <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="user.name" value="syhn"/>
+    <property name="java.class.path" value="/Users/syhn/Library/Application Support/JetBrains/Toolbox/apps/IDEA-U/ch-0/231.9225.16/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/boot/plexus-classworlds.license:/Users/syhn/Library/Application Support/JetBrains/Toolbox/apps/IDEA-U/ch-0/231.9225.16/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/boot/plexus-classworlds-2.6.0.jar:/Users/syhn/Library/Application Support/JetBrains/Toolbox/apps/IDEA-U/ch-0/231.9225.16/IntelliJ IDEA.app/Contents/lib/idea_rt.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre"/>
+    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2023.1.4 package"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="zh"/>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_412"/>
+    <property name="java.ext.dirs" value="/Users/syhn/Library/Java/Extensions:/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
+    <property name="sun.boot.class.path" value="/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre/lib/resources.jar:/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre/lib/rt.jar:/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre/lib/sunrsasign.jar:/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre/lib/jsse.jar:/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre/lib/jce.jar:/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre/lib/charsets.jar:/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre/lib/jfr.jar:/Users/syhn/Library/Java/JavaVirtualMachines/corretto-1.8.0_412/Contents/Home/jre/classes"/>
+    <property name="java.vendor" value="Amazon.com Inc."/>
+    <property name="java.specification.maintenance.version" value="5"/>
+    <property name="maven.home" value="/Users/syhn/Library/Application Support/JetBrains/Toolbox/apps/IDEA-U/ch-0/231.9225.16/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="https://github.com/corretto/corretto-8/issues/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+</testsuite>

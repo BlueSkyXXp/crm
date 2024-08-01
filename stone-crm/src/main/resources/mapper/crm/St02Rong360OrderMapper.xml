@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St02Rong360OrderMapper">
+    
+    <resultMap type="St02Rong360Order" id="St02Rong360OrderResult">
+        <result property="id"    column="id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="city"    column="city"    />
+        <result property="userName"    column="user_name"    />
+        <result property="userMobile"    column="user_mobile"    />
+        <result property="product"    column="product"    />
+        <result property="applicationTerm"    column="application_term"    />
+        <result property="bankerId"    column="banker_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="status"    column="status"    />
+        <result property="applyFrom"    column="apply_from"    />
+        <result property="qsearch"    column="qsearch"    />
+        <result property="sharinglistUrl"    column="sharinglist_url"    />
+        <result property="deleteAt"    column="delete_at"    />
+        <result property="applicationLimit"    column="application_limit"    />
+        <result property="cost"    column="cost"    />
+        <result property="authorizationUrl"    column="authorization_url"    />
+    </resultMap>
+
+    <sql id="selectSt02Rong360OrderVo">
+        select id, order_id, city, user_name, user_mobile, product, application_term, banker_id, create_time, status, apply_from, qsearch, sharinglist_url, delete_at, application_limit, cost, authorization_url from st02_rong_360_order
+    </sql>
+
+    <select id="selectSt02Rong360OrderList" parameterType="St02Rong360Order" resultMap="St02Rong360OrderResult">
+        <include refid="selectSt02Rong360OrderVo"/>
+        <where>  
+            <if test="orderId != null "> and order_id = #{orderId}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="userMobile != null  and userMobile != ''"> and user_mobile = #{userMobile}</if>
+            <if test="product != null  and product != ''"> and product = #{product}</if>
+            <if test="applicationTerm != null "> and application_term = #{applicationTerm}</if>
+            <if test="bankerId != null "> and banker_id = #{bankerId}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="applyFrom != null  and applyFrom != ''"> and apply_from = #{applyFrom}</if>
+            <if test="qsearch != null  and qsearch != ''"> and qsearch = #{qsearch}</if>
+            <if test="sharinglistUrl != null  and sharinglistUrl != ''"> and sharinglist_url = #{sharinglistUrl}</if>
+            <if test="deleteAt != null "> and delete_at = #{deleteAt}</if>
+            <if test="applicationLimit != null "> and application_limit = #{applicationLimit}</if>
+            <if test="cost != null "> and cost = #{cost}</if>
+            <if test="authorizationUrl != null  and authorizationUrl != ''"> and authorization_url = #{authorizationUrl}</if>
+        </where>
+    </select>
+
+
+    <select id="selectSt02Rong360OrderListNotDeletedOrderByCreateTimeDesc" resultMap="St02Rong360OrderResult">
+        <include refid="selectSt02Rong360OrderVo"/>
+        <where>
+                delete_at is null
+
+        </where>
+            order by create_time desc limit 500
+    </select>
+
+    
+    <select id="selectSt02Rong360OrderById" parameterType="Long" resultMap="St02Rong360OrderResult">
+        <include refid="selectSt02Rong360OrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSt02Rong360Order" parameterType="St02Rong360Order" useGeneratedKeys="true" keyProperty="id">
+        insert into st02_rong_360_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="city != null">city,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="userMobile != null">user_mobile,</if>
+            <if test="product != null">product,</if>
+            <if test="applicationTerm != null">application_term,</if>
+            <if test="bankerId != null">banker_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="status != null">status,</if>
+            <if test="applyFrom != null">apply_from,</if>
+            <if test="qsearch != null">qsearch,</if>
+            <if test="sharinglistUrl != null">sharinglist_url,</if>
+            <if test="deleteAt != null">delete_at,</if>
+            <if test="applicationLimit != null">application_limit,</if>
+            <if test="cost != null">cost,</if>
+            <if test="authorizationUrl != null">authorization_url,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="city != null">#{city},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="userMobile != null">#{userMobile},</if>
+            <if test="product != null">#{product},</if>
+            <if test="applicationTerm != null">#{applicationTerm},</if>
+            <if test="bankerId != null">#{bankerId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="status != null">#{status},</if>
+            <if test="applyFrom != null">#{applyFrom},</if>
+            <if test="qsearch != null">#{qsearch},</if>
+            <if test="sharinglistUrl != null">#{sharinglistUrl},</if>
+            <if test="deleteAt != null">#{deleteAt},</if>
+            <if test="applicationLimit != null">#{applicationLimit},</if>
+            <if test="cost != null">#{cost},</if>
+            <if test="authorizationUrl != null">#{authorizationUrl},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSt02Rong360Order" parameterType="St02Rong360Order">
+        update st02_rong_360_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="userMobile != null">user_mobile = #{userMobile},</if>
+            <if test="product != null">product = #{product},</if>
+            <if test="applicationTerm != null">application_term = #{applicationTerm},</if>
+            <if test="bankerId != null">banker_id = #{bankerId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="applyFrom != null">apply_from = #{applyFrom},</if>
+            <if test="qsearch != null">qsearch = #{qsearch},</if>
+            <if test="sharinglistUrl != null">sharinglist_url = #{sharinglistUrl},</if>
+            <if test="deleteAt != null">delete_at = #{deleteAt},</if>
+            <if test="applicationLimit != null">application_limit = #{applicationLimit},</if>
+            <if test="cost != null">cost = #{cost},</if>
+            <if test="authorizationUrl != null">authorization_url = #{authorizationUrl},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSt02Rong360OrderById" parameterType="Long">
+        delete from st02_rong_360_order where id = #{id}
+    </delete>
+
+    <delete id="deleteSt02Rong360OrderByIds" parameterType="String">
+        delete from st02_rong_360_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

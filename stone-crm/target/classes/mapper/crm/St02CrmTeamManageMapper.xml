@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St02CrmTeamManageMapper">
+    
+    <resultMap type="St02CrmTeamManage" id="St02CrmTeamManageResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="planDataNum"    column="plan_data_num"    />
+        <result property="receiveDataNum"    column="receive_data_num"    />
+        <result property="receiveNewData"    column="receive_new_data"    />
+        <result property="receivePublicData"    column="receive_public_data"    />
+        <result property="login"    column="login"    />
+        <result property="remark"    column="remark"    />
+        <result property="operatorId"    column="operator_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <resultMap type="St02CrmTeamManageVo" id="St02CrmTeamManageDetailResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="planDataNum"    column="plan_data_num"    />
+        <result property="receiveDataNum"    column="receive_data_num"    />
+        <result property="receiveNewData"    column="receive_new_data"    />
+        <result property="receivePublicData"    column="receive_public_data"    />
+        <result property="login"    column="login"    />
+        <result property="remark"    column="remark"    />
+        <result property="operatorId"    column="operator_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+<!--        <association property="teamManage"    javaType="St02CrmTeamManage"         resultMap="St02CrmTeamManageResult" />-->
+        <result property="userName"    column="user_name"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="operatorName"    column="operator_name"    />
+        <result property="deptId"    column="dept_id"    />
+    </resultMap>
+
+
+    <resultMap type="St02CrmTeamStatic" id="St02CrmTeamStaticResult">
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="userName"    column="user_name"    />
+        <result property="level0Cnt"    column="level0_cnt"    />
+        <result property="level0Percentage"    column="level0_percentage"    />
+        <result property="level1Cnt"    column="level1_cnt"    />
+        <result property="level1Percentage"    column="level1_percentage"    />
+        <result property="level2Cnt"    column="level2_cnt"    />
+        <result property="level2Percentage"    column="level2_percentage"    />
+        <result property="level3Cnt"    column="level3_cnt"    />
+        <result property="level3Percentage"    column="level3_percentage"    />
+        <result property="level4Cnt"    column="level4_cnt"    />
+        <result property="level4Percentage"    column="level4_percentage"    />
+        <result property="level5Cnt"    column="level5_cnt"    />
+        <result property="level5Percentage"    column="level5_percentage"    />
+        <result property="cnt"    column="cnt"    />
+    </resultMap>
+
+    <select id="selectSt02CrmTeamStaticList" parameterType="DailyInterDataReqVo" resultMap="St02CrmTeamStaticResult">
+        select dept.dept_name, user.user_name, user.dept_id,
+        sum(CASE WHEN level = 0 THEN 1 ELSE 0 END) AS level0_cnt,
+        ROUND((sum(CASE WHEN level = 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)), 2) AS level0_percentage,
+        sum(CASE WHEN level = 1 THEN 1 ELSE 0 END) AS level1_cnt,
+        ROUND((sum(CASE WHEN level = 1 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)), 2) AS level1_percentage,
+        sum(CASE WHEN level = 2 THEN 1 ELSE 0 END) AS level2_cnt,
+        ROUND((sum(CASE WHEN level = 2 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)), 2) AS level2_percentage,
+        sum(CASE WHEN level = 3 THEN 1 ELSE 0 END) AS level3_cnt,
+        ROUND((sum(CASE WHEN level = 3 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)), 2) AS level3_percentage,
+        sum(CASE WHEN level = 4 THEN 1 ELSE 0 END) AS level4_cnt,
+        ROUND((sum(CASE WHEN level = 4 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)), 2) AS level4_percentage,
+        sum(CASE WHEN level = 5 THEN 1 ELSE 0 END) AS level5_cnt,
+        ROUND((sum(CASE WHEN level = 5 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)), 2) AS level5_percentage,
+        count(1) as cnt
+        from st02_crm_customer customer, sys_dept dept, sys_user user, st02_crm_customer_flow_info flow
+        <where>
+            user.user_id = customer.user_id and user.dept_id = dept.dept_id
+            and customer.id = flow.customer_id and flow.source_plat = 'API'
+            <if test="deptId != null  and deptId != ''"> and dept.dept_id = #{deptId}</if>
+            <if test="source != null  and source != ''"> and customer.source = #{source}</if>
+            and customer.create_time  &gt;= #{startTime} and customer.create_time &lt;= #{endTime} and
+            customer.user_id is not null
+        </where>
+        group by customer.user_id
+    </select>
+
+
+    <sql id="selectSt02CrmTeamManageVo">
+        select id, user_id, plan_data_num, receive_data_num, receive_new_data, receive_public_data, login, remark, operator_id, create_time, update_time from st02_crm_team_manage
+    </sql>
+
+    <select id="selectSt02CrmTeamManageList" parameterType="St02CrmTeamManage" resultMap="St02CrmTeamManageResult">
+        <include refid="selectSt02CrmTeamManageVo"/>
+        <where>  
+            <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
+            <if test="planDataNum != null "> and plan_data_num = #{planDataNum}</if>
+            <if test="receiveDataNum != null "> and receive_data_num = #{receiveDataNum}</if>
+            <if test="receiveNewData != null "> and receive_new_data = #{receiveNewData}</if>
+            <if test="receivePublicData != null "> and receive_public_data = #{receivePublicData}</if>
+            <if test="login != null "> and login = #{login}</if>
+            <if test="operatorId != null "> and operator_id = #{operatorId}</if>
+        </where>
+    </select>
+
+    <select id="selectSt02CrmTeamManageVoList" parameterType="St02CrmTeamManage" resultMap="St02CrmTeamManageDetailResult">
+        SELECT
+        t.id,
+        t.user_id,
+        t.plan_data_num,
+        t.receive_data_num,
+        t.receive_new_data,
+        t.receive_public_data,
+        t.login,
+        t.remark,
+        t.operator_id,
+        t.create_time,
+        t.update_time,
+        u1.user_name AS user_name,
+        u1.dept_id AS dept_id,
+        u2.user_name AS operator_name,
+        d.dept_name AS dept_name
+        FROM
+        st02_crm_team_manage t
+        LEFT JOIN
+        sys_user u1 ON t.user_id = u1.user_id
+        LEFT JOIN
+        sys_user u2 ON t.operator_id = u2.user_id
+        LEFT JOIN
+        sys_dept d ON u1.dept_id = d.dept_id
+
+        <where>
+            <if test="userId != null  and userId != ''"> and t.user_id = #{userId}</if>
+            <if test="planDataNum != null "> and plan_data_num = #{planDataNum}</if>
+            <if test="receiveDataNum != null "> and receive_data_num = #{receiveDataNum}</if>
+            <if test="receiveNewData != null "> and receive_new_data = #{receiveNewData}</if>
+            <if test="receivePublicData != null "> and receive_public_data = #{receivePublicData}</if>
+            <if test="login != null "> and login = #{login}</if>
+            <if test="operatorId != null "> and operator_id = #{operatorId}</if>
+        </where>
+    </select>
+    
+    <select id="selectSt02CrmTeamManageById" parameterType="Long" resultMap="St02CrmTeamManageResult">
+        <include refid="selectSt02CrmTeamManageVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectSt02CrmTeamManageByUserId" parameterType="Long" resultMap="St02CrmTeamManageResult">
+        <include refid="selectSt02CrmTeamManageVo"/>
+        where user_id = #{userId}
+    </select>
+
+    <insert id="insertSt02CrmTeamManage" parameterType="St02CrmTeamManage" useGeneratedKeys="true" keyProperty="id">
+        insert into st02_crm_team_manage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="planDataNum != null">plan_data_num,</if>
+            <if test="receiveDataNum != null">receive_data_num,</if>
+            <if test="receiveNewData != null">receive_new_data,</if>
+            <if test="receivePublicData != null">receive_public_data,</if>
+            <if test="login != null">login,</if>
+            <if test="remark != null">remark,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="planDataNum != null">#{planDataNum},</if>
+            <if test="receiveDataNum != null">#{receiveDataNum},</if>
+            <if test="receiveNewData != null">#{receiveNewData},</if>
+            <if test="receivePublicData != null">#{receivePublicData},</if>
+            <if test="login != null">#{login},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSt02CrmTeamManage" parameterType="St02CrmTeamManage">
+        update st02_crm_team_manage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="planDataNum != null">plan_data_num = #{planDataNum},</if>
+            <if test="receiveDataNum != null">receive_data_num = #{receiveDataNum},</if>
+            <if test="receiveNewData != null">receive_new_data = #{receiveNewData},</if>
+            <if test="receivePublicData != null">receive_public_data = #{receivePublicData},</if>
+            <if test="login != null">login = #{login},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+
+    <update id="updateSt02CrmTeamManageByUserId" parameterType="St02CrmTeamManage">
+        update st02_crm_team_manage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="planDataNum != null">plan_data_num = #{planDataNum},</if>
+            <if test="receiveDataNum != null">receive_data_num = #{receiveDataNum},</if>
+            <if test="receiveNewData != null">receive_new_data = #{receiveNewData},</if>
+            <if test="receivePublicData != null">receive_public_data = #{receivePublicData},</if>
+            <if test="login != null">login = #{login},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+    <delete id="deleteSt02CrmTeamManageById" parameterType="Long">
+        delete from st02_crm_team_manage where id = #{id}
+    </delete>
+
+    <delete id="deleteSt02CrmTeamManageByIds" parameterType="String">
+        delete from st02_crm_team_manage where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

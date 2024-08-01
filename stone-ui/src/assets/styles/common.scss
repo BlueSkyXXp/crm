@@ -1,0 +1,28 @@
+.flex {
+  display: flex;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-start {
+  justify-content: flex-start;
+}
+.bg-blue {
+  background-color: aliceblue;
+  color: #606266;
+}
+.m10 {
+  margin: 10px;
+}
+.p10 {
+  padding: 10px;
+}
+.font-lg {
+  font-size: 2.125rem;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.full-width-textarea {
+  width: 100%; /* Ensures the input takes up the full width */
+}

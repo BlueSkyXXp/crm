@@ -1,0 +1,38 @@
+11:02:33.755 [restartedMain] INFO  c.s.StoneApplication - [logStarting,55] - Starting StoneApplication using Java 1.8.0_412 on syhndeMacBook-Pro.local with PID 45652 (/Users/syhn/IdeaProjects/stone-crm/stone-admin/target/classes started by syhn in /Users/syhn/IdeaProjects/stone-crm)
+11:02:33.760 [restartedMain] INFO  c.s.StoneApplication - [logStartupProfileInfo,686] - The following 1 profile is active: "druid"
+11:02:33.762 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+11:02:36.583 [restartedMain] INFO  io.undertow.servlet - [log,389] - Initializing Spring embedded WebApplicationContext
+11:02:40.311 [restartedMain] INFO  c.a.d.p.DruidDataSource - [init,1009] - {dataSource-1} inited
+11:02:42.284 [restartedMain] INFO  o.q.i.StdSchedulerFactory - [instantiate,1220] - Using default implementation for ThreadExecutor
+11:02:42.294 [restartedMain] INFO  o.q.c.SchedulerSignalerImpl - [<init>,61] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+11:02:42.294 [restartedMain] INFO  o.q.c.QuartzScheduler - [<init>,229] - Quartz Scheduler v.2.3.2 created.
+11:02:42.295 [restartedMain] INFO  o.q.s.RAMJobStore - [initialize,155] - RAMJobStore initialized.
+11:02:42.296 [restartedMain] INFO  o.q.c.QuartzScheduler - [initialize,294] - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+11:02:42.296 [restartedMain] INFO  o.q.i.StdSchedulerFactory - [instantiate,1374] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+11:02:42.296 [restartedMain] INFO  o.q.i.StdSchedulerFactory - [instantiate,1378] - Quartz scheduler version: 2.3.2
+11:02:42.296 [restartedMain] INFO  o.q.c.QuartzScheduler - [setJobFactory,2293] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@3a1728d6
+11:02:44.943 [restartedMain] INFO  i.u.websockets.jsr - [addEndpointInternal,639] - UT026003: Adding annotated server endpoint class com.stone.framework.websocket.WebSocketServer for path /d41d8cd98f00b204e9800998ecf8427e/{uid}
+11:02:44.984 [restartedMain] INFO  io.undertow - [start,120] - starting server: Undertow - 2.2.24.Final
+11:02:44.991 [restartedMain] INFO  org.xnio - [<clinit>,95] - XNIO version 3.8.7.Final
+11:02:44.997 [restartedMain] INFO  org.xnio.nio - [<clinit>,58] - XNIO NIO Implementation Version 3.8.7.Final
+11:02:45.019 [restartedMain] INFO  org.jboss.threads - [<clinit>,52] - JBoss Threads version 3.1.0.Final
+11:02:46.084 [restartedMain] INFO  o.q.c.QuartzScheduler - [start,547] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+11:02:46.118 [restartedMain] INFO  c.s.StoneApplication - [logStarted,61] - Started StoneApplication in 12.864 seconds (JVM running for 13.733)
+11:14:51.786 [XNIO-1 task-5] INFO  io.undertow.servlet - [log,389] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+11:15:20.862 [schedule-pool-1] INFO  sys-user - [run,58] - [127.0.0.1]内网IP[admin][Success][登录成功]
+11:22:19.290 [SpringApplicationShutdownHook] INFO  o.q.c.QuartzScheduler - [standby,585] - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+11:22:19.301 [SpringApplicationShutdownHook] INFO  io.undertow - [stop,259] - stopping server: Undertow - 2.2.24.Final
+11:22:19.314 [SpringApplicationShutdownHook] INFO  io.undertow.servlet - [log,389] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+11:22:19.327 [SpringApplicationShutdownHook] INFO  o.q.c.QuartzScheduler - [shutdown,666] - Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+11:22:19.327 [SpringApplicationShutdownHook] INFO  o.q.c.QuartzScheduler - [standby,585] - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+11:22:19.329 [SpringApplicationShutdownHook] INFO  o.q.c.QuartzScheduler - [shutdown,740] - Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+11:22:19.329 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,31] - ====关闭后台任务任务线程池====
+11:22:19.336 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2174] - {dataSource-1} closing ...
+11:22:19.352 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2247] - {dataSource-1} closed

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_contract_productMapper">
+    
+    <resultMap type="st01_crm_contract_product" id="st01_crm_contract_productResult">
+        <result property="rId"    column="r_id"    />
+        <result property="contractId"    column="contract_id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="contractName"    column="contract_name"    />
+        <result property="productName"    column="product_name"    />
+        <result property="price"    column="price"    />
+        <result property="salesPrice"    column="sales_price"    />
+        <result property="num"    column="num"    />
+        <result property="discount"    column="discount"    />
+        <result property="subtotal"    column="subtotal"    />
+        <result property="unit"    column="unit"    />
+    </resultMap>
+
+    <sql id="selectst01_crm_contract_productVo">
+        select r_id, contract_id, product_id, contract_name, product_name, price, sales_price, num, discount, subtotal, unit from st01_crm_contract_product
+    </sql>
+
+    <select id="selectst01_crm_contract_productList" parameterType="st01_crm_contract_product" resultMap="st01_crm_contract_productResult">
+        <include refid="selectst01_crm_contract_productVo"/>
+        <where>  
+            <if test="contractId != null  and contractId != ''"> and contract_id = #{contractId}</if>
+            <if test="productId != null  and productId != ''"> and product_id = #{productId}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="salesPrice != null "> and sales_price = #{salesPrice}</if>
+            <if test="num != null  and num != ''"> and num = #{num}</if>
+            <if test="discount != null "> and discount = #{discount}</if>
+            <if test="subtotal != null "> and subtotal = #{subtotal}</if>
+            <if test="unit != null  and unit != ''"> and unit = #{unit}</if>
+        </where>
+    </select>
+    
+    <select id="selectst01_crm_contract_productByRId" parameterType="String" resultMap="st01_crm_contract_productResult">
+        <include refid="selectst01_crm_contract_productVo"/>
+        where r_id = #{rId}
+    </select>
+        
+    <insert id="insertst01_crm_contract_product" parameterType="st01_crm_contract_product">
+        insert into st01_crm_contract_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rId != null">r_id,</if>
+            <if test="contractId != null">contract_id,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="contractName != null">contract_name,</if>
+            <if test="productName != null">product_name,</if>
+            <if test="price != null">price,</if>
+            <if test="salesPrice != null">sales_price,</if>
+            <if test="num != null">num,</if>
+            <if test="discount != null">discount,</if>
+            <if test="subtotal != null">subtotal,</if>
+            <if test="unit != null">unit,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rId != null">#{rId},</if>
+            <if test="contractId != null">#{contractId},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="contractName != null">#{contractName},</if>
+            <if test="productName != null">#{productName},</if>
+            <if test="price != null">#{price},</if>
+            <if test="salesPrice != null">#{salesPrice},</if>
+            <if test="num != null">#{num},</if>
+            <if test="discount != null">#{discount},</if>
+            <if test="subtotal != null">#{subtotal},</if>
+            <if test="unit != null">#{unit},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_contract_product" parameterType="st01_crm_contract_product">
+        update st01_crm_contract_product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="contractId != null">contract_id = #{contractId},</if>
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="contractName != null">contract_name = #{contractName},</if>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="salesPrice != null">sales_price = #{salesPrice},</if>
+            <if test="num != null">num = #{num},</if>
+            <if test="discount != null">discount = #{discount},</if>
+            <if test="subtotal != null">subtotal = #{subtotal},</if>
+            <if test="unit != null">unit = #{unit},</if>
+        </trim>
+        where r_id = #{rId}
+    </update>
+
+    <delete id="deletest01_crm_contract_productByRId" parameterType="String">
+        delete from st01_crm_contract_product where r_id = #{rId}
+    </delete>
+
+    <delete id="deletest01_crm_contract_productByContractId" parameterType="String">
+        delete from st01_crm_contract_product where contract_id = #{value}
+    </delete>
+
+    <delete id="deletest01_crm_contract_productByRIds" parameterType="String">
+        delete from st01_crm_contract_product where r_id in 
+        <foreach item="rId" collection="array" open="(" separator="," close=")">
+            #{rId}
+        </foreach>
+    </delete>
+</mapper>

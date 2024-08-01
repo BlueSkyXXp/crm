@@ -1,0 +1,55 @@
+##引入宏定义
+$!{define.vm}
+
+##使用宏定义设置回调（保存位置与文件后缀）
+#save("/domain", ".java")
+
+##使用宏定义设置包后缀
+#setPackageSuffix("domain")
+#set($tableApi = $tableInfo.comment.replaceAll("表",""))
+
+##使用全局变量实现默认包导入
+$!{autoImport.vm}
+
+import com.stone.common.annotation.DictValue;
+import com.stone.common.annotation.Excel;
+import com.stone.common.core.domain.BaseEntity;
+import com.stone.common.utils.equator.EqualsAnnotation;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+
+/**
+ * $!{tableApi}($!{tableInfo.name})对象
+ *
+ * @author $!author
+ * @data $!time.currTime()
+ */
+
+##使用宏定义实现类注释信息
+#tableComment("实体类")
+@Data
+public class $!{tableInfo.name} extends BaseEntity {
+##private static final long serialVersionUID = $!tool.serial();
+private static final long serialVersionUID = 1L;
+#foreach($column in $tableInfo.fullColumn)
+    #if(${column.comment})/**
+     * ${column.comment}
+     */#end
+
+@ApiModelProperty(value = "${column.comment}")
+@Excel(name = "${column.comment}")
+private $!{tool.getClsNameByFullName($column.type)} $!{column.name};
+#end
+
+##foreach($column in $tableInfo.fullColumn)
+##使用宏定义实现get,set方法
+##getSetMethod($column)
+##end
+
+}

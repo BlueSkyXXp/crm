@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.system.mapper.SysAreaMapper">
+
+    <resultMap type="SysArea" id="SysAreaResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="pid"    column="pid"    />
+        <result property="sname"    column="sname"    />
+        <result property="level"    column="level"    />
+        <result property="citycode"    column="citycode"    />
+        <result property="yzcode"    column="yzcode"    />
+        <result property="Lng"    column="Lng"    />
+        <result property="Lat"    column="Lat"    />
+        <result property="pinyin"    column="pinyin"    />
+        <result property="mername"    column="mername"    />
+    </resultMap>
+
+    <sql id="selectSysAreaVo">
+        select id, name, pid, sname, level, citycode, yzcode, Lng, Lat, pinyin, mername from sys_area
+    </sql>
+
+    <select id="selectSysAreaList" parameterType="SysArea" resultMap="SysAreaResult">
+        <include refid="selectSysAreaVo"/>
+        <where>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="pid != null "> and pid = #{pid}</if>
+            <if test="sname != null  and sname != ''"> and sname like concat('%', #{sname}, '%')</if>
+            <if test="level != null "> and level = #{level}</if>
+            <if test="citycode != null  and citycode != ''"> and citycode = #{citycode}</if>
+            <if test="yzcode != null  and yzcode != ''"> and yzcode = #{yzcode}</if>
+            <if test="Lng != null "> and Lng = #{Lng}</if>
+            <if test="Lat != null "> and Lat = #{Lat}</if>
+            <if test="pinyin != null  and pinyin != ''"> and pinyin = #{pinyin}</if>
+            <if test="mername != null  and mername != ''"> and mername like concat('%', #{mername}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectSysAreaById" parameterType="Long" resultMap="SysAreaResult">
+        <include refid="selectSysAreaVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSysArea" parameterType="SysArea">
+        insert into sys_area
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="pid != null">pid,</if>
+            <if test="sname != null">sname,</if>
+            <if test="level != null">level,</if>
+            <if test="citycode != null">citycode,</if>
+            <if test="yzcode != null">yzcode,</if>
+            <if test="Lng != null">Lng,</if>
+            <if test="Lat != null">Lat,</if>
+            <if test="pinyin != null">pinyin,</if>
+            <if test="mername != null">mername,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="pid != null">#{pid},</if>
+            <if test="sname != null">#{sname},</if>
+            <if test="level != null">#{level},</if>
+            <if test="citycode != null">#{citycode},</if>
+            <if test="yzcode != null">#{yzcode},</if>
+            <if test="Lng != null">#{Lng},</if>
+            <if test="Lat != null">#{Lat},</if>
+            <if test="pinyin != null">#{pinyin},</if>
+            <if test="mername != null">#{mername},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysArea" parameterType="SysArea">
+        update sys_area
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="pid != null">pid = #{pid},</if>
+            <if test="sname != null">sname = #{sname},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="citycode != null">citycode = #{citycode},</if>
+            <if test="yzcode != null">yzcode = #{yzcode},</if>
+            <if test="Lng != null">Lng = #{Lng},</if>
+            <if test="Lat != null">Lat = #{Lat},</if>
+            <if test="pinyin != null">pinyin = #{pinyin},</if>
+            <if test="mername != null">mername = #{mername},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysAreaById" parameterType="Long">
+        delete from sys_area where id = #{id}
+    </delete>
+
+    <delete id="deleteSysAreaByIds" parameterType="String">
+        delete from sys_area where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

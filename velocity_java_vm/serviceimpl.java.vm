@@ -1,0 +1,108 @@
+##定义初始变量
+#set($tableName = $tool.append($tableInfo.name, "ServiceImpl"))
+#set($tableApi = $tableInfo.comment.replaceAll("表",""))
+#set($tableLastSegment = $tool.hump2Underline($tableInfo.name).split("_")[-1].toLowerCase())
+##设置回调
+$!callback.setFileName($tool.append($tableName, ".java"))
+$!callback.setSavePath($tool.append($tableInfo.savePath, "/service/impl"))
+
+##拿到主键
+#if(!$tableInfo.pkColumn.isEmpty())
+    #set($pk = $tableInfo.pkColumn.get(0))
+#end
+
+#if($tableInfo.savePackageName)package $!{tableInfo.savePackageName}.#{end}service.impl;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import $!{tableInfo.savePackageName}.domain.$!{tableInfo.name};
+import $!{tableInfo.savePackageName}.mapper.$!{tableInfo.name}Mapper;
+import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
+import com.stone.common.core.service.BaseService;
+
+/**
+ * $!{tableInfo.comment}($!{tableInfo.name})表服务实现类
+ *
+ * @author $!author
+ * @since $!time.currTime()
+ */
+@Service
+public class $!{tableName} extends BaseService implements $!{tableInfo.name}Service {
+@Autowired
+private ${tableInfo.name}Mapper ${tool.firstLowerCase($!{tableInfo.name})}Mapper;
+
+/**
+ * 查询${tableApi}
+ *
+ * @param id ${tableApi}主键
+ * @return ${tableApi}
+ */
+@Override
+public ${tableInfo.name} select${tableInfo.name}ById(String id)
+        {
+    ${tableInfo.name} result=${tool.firstLowerCase($!{tableInfo.name})}Mapper.select${tableInfo.name}ById(id);
+        return ${tool.firstLowerCase($!{tableInfo.name})}Mapper.select${tableInfo.name}ById(id);
+        }
+
+/**
+ * 查询${tableApi}列表
+ *
+ * @param ${tool.firstLowerCase($!{tableInfo.name})} ${tableApi}
+ * @return ${tableApi}
+ */
+@Override
+public List<${tableInfo.name}> select${tableInfo.name}List(${tableInfo.name} ${tool.firstLowerCase($!{tableInfo.name})})
+        {
+        List<${tableInfo.name}> list=${tool.firstLowerCase($!{tableInfo.name})}Mapper.select${tableInfo.name}List(${tool.firstLowerCase($tableInfo.name)});
+        transBeanInList(list);
+        return list;
+        }
+
+/**
+ * 新增${tableApi}
+ *
+ * @param ${tool.firstLowerCase($!{tableInfo.name})} ${tableApi}
+ * @return 结果
+ */
+@Override
+public int insert${tableInfo.name}(${tableInfo.name} ${tool.firstLowerCase($tableInfo.name)})
+        {
+        return ${tool.firstLowerCase($!{tableInfo.name})}Mapper.insert${tableInfo.name}(${tool.firstLowerCase($tableInfo.name)});
+        }
+
+/**
+ * 修改${tableApi}
+ *
+ * @param ${tool.firstLowerCase($!{tableInfo.name})} ${tableApi}
+ * @return 结果
+ */
+@Override
+public int update${tableInfo.name}(${tableInfo.name} ${tool.firstLowerCase($tableInfo.name)})
+        {
+        return ${tool.firstLowerCase($!{tableInfo.name})}Mapper.update${tableInfo.name}(${tool.firstLowerCase($tableInfo.name)});
+        }
+
+/**
+ * 批量删除${tableApi}
+ *
+ * @param ids 需要删除的${tableApi}主键
+ * @return 结果
+ */
+@Override
+public int delete${tableInfo.name}ByIds(String[] ids)
+        {
+        return ${tool.firstLowerCase($!{tableInfo.name})}Mapper.delete${tableInfo.name}ByIds(ids);
+        }
+
+/**
+ * 删除${tableApi}信息
+ *
+ * @param id ${tableApi}主键
+ * @return 结果
+ */
+@Override
+public int delete${tableInfo.name}ById(String id)
+        {
+        return ${tool.firstLowerCase($!{tableInfo.name})}Mapper.delete${tableInfo.name}ById(id);
+        }

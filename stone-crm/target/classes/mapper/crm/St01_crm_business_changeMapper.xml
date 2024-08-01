@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_business_changeMapper">
+    
+    <resultMap type="st01_crm_business_change" id="st01_crm_business_changeResult">
+        <result property="changeId"    column="change_id"    />
+        <result property="businessId"    column="business_id"    />
+        <result property="statusId"    column="status_id"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="createdBy"    column="created_by"    />
+    </resultMap>
+
+    <sql id="selectst01_crm_business_changeVo">
+        select change_id, business_id, status_id, created_time, created_by from st01_crm_business_change
+    </sql>
+
+    <select id="selectst01_crm_business_changeList" parameterType="st01_crm_business_change" resultMap="st01_crm_business_changeResult">
+        <include refid="selectst01_crm_business_changeVo"/>
+        <where>  
+            <if test="businessId != null  and businessId != ''"> and business_id = #{businessId}</if>
+            <if test="statusId != null  and statusId != ''"> and status_id = #{statusId}</if>
+            <if test="createdTime != null  and createdTime != ''"> and created_time = #{createdTime}</if>
+            <if test="createdBy != null  and createdBy != ''"> and created_by = #{createdBy}</if>
+        </where>
+    </select>
+    
+    <select id="selectst01_crm_business_changeByChangeId" parameterType="String" resultMap="st01_crm_business_changeResult">
+        <include refid="selectst01_crm_business_changeVo"/>
+        where change_id = #{changeId}
+    </select>
+        
+    <insert id="insertst01_crm_business_change" parameterType="st01_crm_business_change">
+        insert into st01_crm_business_change
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="changeId != null">change_id,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="statusId != null">status_id,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="createdBy != null">created_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="changeId != null">#{changeId},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="statusId != null">#{statusId},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_business_change" parameterType="st01_crm_business_change">
+        update st01_crm_business_change
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="businessId != null">business_id = #{businessId},</if>
+            <if test="statusId != null">status_id = #{statusId},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+        </trim>
+        where change_id = #{changeId}
+    </update>
+
+    <delete id="deletest01_crm_business_changeByChangeId" parameterType="String">
+        delete from st01_crm_business_change where change_id = #{changeId}
+    </delete>
+
+    <delete id="deletest01_crm_business_changeByChangeIds" parameterType="String">
+        delete from st01_crm_business_change where change_id in 
+        <foreach item="changeId" collection="array" open="(" separator="," close=")">
+            #{changeId}
+        </foreach>
+    </delete>
+</mapper>

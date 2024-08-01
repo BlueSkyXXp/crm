@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_productMapper">
+    
+    <resultMap type="st01_crm_product" id="st01_crm_productResult">
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="num"    column="num"    />
+        <result property="unit"    column="unit"    />
+        <result property="price"    column="price"    />
+        <result property="status"    column="status"    />
+        <result property="categoryId"    column="category_id"    />
+        <result property="description"    column="description"    />
+        <result property="createdBy"    column="created_by"    />
+        <result property="updatedBy"    column="updated_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+
+
+    <sql id="selectst01_crm_productVo">
+        select a.*,b.category_name as categoryName from st01_crm_product a
+              left join  st01_crm_product_category b
+             on a.category_id= b.category_id
+    </sql>
+
+    <select id="selectst01_crm_productList" parameterType="st01_crm_product" resultMap="st01_crm_productResult">
+        <include refid="selectst01_crm_productVo"/>
+        <where>  
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="num != null  and num != ''"> and num = #{num}</if>
+        </where>
+    </select>
+
+    <select id="selectst01_crm_productListForCache" parameterType="st01_crm_product" resultType="SysDictData">
+        select product_id as dictValue, product_name as dictLabel from st01_crm_product
+    </select>
+
+    
+    <select id="selectst01_crm_productByProductId" parameterType="String" resultMap="st01_crm_productResult">
+        <include refid="selectst01_crm_productVo"/>
+        where product_id = #{productId}
+    </select>
+        
+    <insert id="insertst01_crm_product" parameterType="st01_crm_product">
+        insert into st01_crm_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productId != null">product_id,</if>
+            <if test="productName != null">product_name,</if>
+            <if test="num != null">num,</if>
+            <if test="unit != null">unit,</if>
+            <if test="price != null">price,</if>
+            <if test="status != null">status,</if>
+            <if test="categoryId != null">category_id,</if>
+            <if test="description != null">description,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productId != null">#{productId},</if>
+            <if test="productName != null">#{productName},</if>
+            <if test="num != null">#{num},</if>
+            <if test="unit != null">#{unit},</if>
+            <if test="price != null">#{price},</if>
+            <if test="status != null">#{status},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+            <if test="description != null">#{description},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_product" parameterType="st01_crm_product">
+        update st01_crm_product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="num != null">num = #{num},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where product_id = #{productId}
+    </update>
+
+    <delete id="deletest01_crm_productByProductId" parameterType="String">
+        delete from st01_crm_product where product_id = #{productId}
+    </delete>
+
+    <delete id="deletest01_crm_productByProductIds" parameterType="String">
+        delete from st01_crm_product where product_id in 
+        <foreach item="productId" collection="array" open="(" separator="," close=")">
+            #{productId}
+        </foreach>
+    </delete>
+</mapper>

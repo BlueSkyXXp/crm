@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St02CrmCustomerMapper">
+
+    <resultMap type="St02CrmCustomer" id="St02CrmCustomerResult">
+        <result property="id"    column="id"    />
+        <result property="source"    column="source"    />
+        <result property="name"    column="name"    />
+        <result property="phone"    column="phone"    />
+        <result property="type"    column="type"    />
+        <result property="age"    column="age"    />
+        <result property="sex"    column="sex"    />
+        <result property="region"    column="region"    />
+        <result property="city"    column="city"    />
+        <result property="maritalStatus"    column="marital_status"    />
+        <result property="otherKnow"    column="other_know"    />
+        <result property="sesameCredit"    column="sesame_credit"    />
+        <result property="microLoans"    column="micro_loans"    />
+        <result property="status"    column="status"    />
+        <result property="level"    column="level"    />
+        <result property="legalPerson"    column="legal_person"    />
+        <result property="appliYear"    column="appli_year"    />
+        <result property="socialSecurity"    column="social_security"    />
+        <result property="socialSecurityYear"    column="social_security_year"    />
+        <result property="socialSecurityMoney"    column="social_security_money"    />
+        <result property="accFund"    column="acc_fund"    />
+        <result property="accFundYear"    column="acc_fund_year"    />
+        <result property="accFundMoney"    column="acc_fund_money"    />
+        <result property="professional"    column="professional"    />
+        <result property="professionalType"    column="professional_type"    />
+        <result property="payMoney"    column="pay_money"    />
+        <result property="payType"    column="pay_type"    />
+        <result property="propertyInfo"    column="property_info"    />
+        <result property="propertyStatus"    column="property_status"    />
+        <result property="area"    column="area"    />
+        <result property="worth"    column="worth"    />
+        <result property="ownerType"    column="owner_type"    />
+        <result property="houseCity"    column="house_city"    />
+        <result property="mortgageTime"    column="mortgage_time"    />
+        <result property="mortgageMoney"    column="mortgage_money"    />
+        <result property="mortgageBank"    column="mortgage_bank"    />
+        <result property="carInfo"    column="car_info"    />
+        <result property="carStatus"    column="car_status"    />
+        <result property="carTermYear"    column="car_term_year"    />
+        <result property="carPrice"    column="car_price"    />
+        <result property="carCity"    column="car_city"    />
+        <result property="carBrand"    column="car_brand"    />
+        <result property="carMortgageTime"    column="car_mortgage_time"    />
+        <result property="carMortgageMoney"    column="car_mortgage_money"    />
+        <result property="carMortgageBank"    column="car_mortgage_bank"    />
+        <result property="policyInfo"    column="policy_info"    />
+        <result property="insuranceCompany"    column="insurance_company"    />
+        <result property="insurancePayType"    column="insurance_pay_type"    />
+        <result property="insurancePayTimes"    column="insurance_pay_times"    />
+        <result property="creditCardInfo"    column="credit_card_info"    />
+        <result property="creditCardMoney"    column="credit_card_money"    />
+        <result property="creditCardLateStatus"    column="credit_card_late_status"    />
+        <result property="loanMoney"    column="loan_money"    />
+        <result property="lateStatus"    column="late_status"    />
+        <result property="minDemandMoney"    column="min_demand_money"    />
+        <result property="maxDemandMoney"    column="max_demand_money"    />
+        <result property="loanType"    column="loan_type"    />
+        <result property="userId"    column="user_id"    />
+        <result property="followTimes"    column="follow_times"    />
+        <result property="firstAssignTime"    column="first_assign_time"    />
+        <result property="lastAssignTime"    column="last_assign_time"    />
+        <result property="lastRemarkTime"    column="last_remark_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+
+    <resultMap type="CustomerTeamInfoVo" id="St02CrmCustomerTeamResult">
+        <result property="id"    column="id"    />
+        <result property="source"    column="source"    />
+        <result property="name"    column="name"    />
+        <result property="phone"    column="phone"    />
+        <result property="type"    column="type"    />
+        <result property="age"    column="age"    />
+        <result property="sex"    column="sex"    />
+        <result property="region"    column="region"    />
+        <result property="city"    column="city"    />
+        <result property="maritalStatus"    column="marital_status"    />
+        <result property="otherKnow"    column="other_know"    />
+        <result property="sesameCredit"    column="sesame_credit"    />
+        <result property="microLoans"    column="micro_loans"    />
+        <result property="status"    column="status"    />
+        <result property="level"    column="level"    />
+        <result property="legalPerson"    column="legal_person"    />
+        <result property="appliYear"    column="appli_year"    />
+        <result property="socialSecurity"    column="social_security"    />
+        <result property="socialSecurityYear"    column="social_security_year"    />
+        <result property="socialSecurityMoney"    column="social_security_money"    />
+        <result property="accFund"    column="acc_fund"    />
+        <result property="accFundYear"    column="acc_fund_year"    />
+        <result property="accFundMoney"    column="acc_fund_money"    />
+        <result property="professional"    column="professional"    />
+        <result property="professionalType"    column="professional_type"    />
+        <result property="payMoney"    column="pay_money"    />
+        <result property="payType"    column="pay_type"    />
+        <result property="propertyInfo"    column="property_info"    />
+        <result property="propertyStatus"    column="property_status"    />
+        <result property="area"    column="area"    />
+        <result property="worth"    column="worth"    />
+        <result property="ownerType"    column="owner_type"    />
+        <result property="houseCity"    column="house_city"    />
+        <result property="mortgageTime"    column="mortgage_time"    />
+        <result property="mortgageMoney"    column="mortgage_money"    />
+        <result property="mortgageBank"    column="mortgage_bank"    />
+        <result property="carInfo"    column="car_info"    />
+        <result property="carStatus"    column="car_status"    />
+        <result property="carTermYear"    column="car_term_year"    />
+        <result property="carPrice"    column="car_price"    />
+        <result property="carCity"    column="car_city"    />
+        <result property="carBrand"    column="car_brand"    />
+        <result property="carMortgageTime"    column="car_mortgage_time"    />
+        <result property="carMortgageMoney"    column="car_mortgage_money"    />
+        <result property="carMortgageBank"    column="car_mortgage_bank"    />
+        <result property="policyInfo"    column="policy_info"    />
+        <result property="insuranceCompany"    column="insurance_company"    />
+        <result property="insurancePayType"    column="insurance_pay_type"    />
+        <result property="insurancePayTimes"    column="insurance_pay_times"    />
+        <result property="creditCardInfo"    column="credit_card_info"    />
+        <result property="creditCardMoney"    column="credit_card_money"    />
+        <result property="creditCardLateStatus"    column="credit_card_late_status"    />
+        <result property="loanMoney"    column="loan_money"    />
+        <result property="lateStatus"    column="late_status"    />
+        <result property="minDemandMoney"    column="min_demand_money"    />
+        <result property="maxDemandMoney"    column="max_demand_money"    />
+        <result property="loanType"    column="loan_type"    />
+        <result property="userId"    column="user_id"    />
+        <result property="followTimes"    column="follow_times"    />
+        <result property="firstAssignTime"    column="first_assign_time"    />
+        <result property="lastAssignTime"    column="last_assign_time"    />
+        <result property="lastRemarkTime"    column="last_remark_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="userName"    column="user_name"    />
+    </resultMap>
+
+
+    <sql id="selectSt02CrmCustomerVo">
+        select id, source, name, phone, type, age, sex, region, city, marital_status, other_know, sesame_credit, micro_loans, status, level, legal_person, appli_year, social_security, social_security_year, social_security_money, acc_fund, acc_fund_year, acc_fund_money, professional, professional_type, pay_money, pay_type, property_info, property_status, area, worth, owner_type, house_city, mortgage_time, mortgage_money, mortgage_bank, car_info, car_status, car_term_year, car_price, car_city, car_brand, car_mortgage_time, car_mortgage_money, car_mortgage_bank, policy_info, insurance_company, insurance_pay_type, insurance_pay_times, credit_card_info, credit_card_money, credit_card_late_status, loan_money, late_status, min_demand_money, max_demand_money, loan_type, user_id, follow_times, first_assign_time, last_assign_time, last_remark_time, create_time, update_time from st02_crm_customer
+    </sql>
+    <sql id="selectTeamCustomerVo">
+        select c.id as id,
+               source,
+               name, '-' as phone,
+               type,
+               age,
+               c.sex, region,
+               city, marital_status,
+               other_know,
+               sesame_credit,
+               micro_loans,
+               c.status, level,
+               legal_person, appli_year, social_security, social_security_year,
+               social_security_money, acc_fund, acc_fund_year, acc_fund_money, professional, professional_type,
+               pay_money, pay_type, property_info, property_status, area,
+               worth, owner_type, house_city, mortgage_time, mortgage_money,
+               mortgage_bank, car_info, car_status, car_term_year, car_price, car_city,
+               car_brand, car_mortgage_time, car_mortgage_money, car_mortgage_bank, policy_info,
+               insurance_company, insurance_pay_type, insurance_pay_times, credit_card_info,
+               credit_card_money, credit_card_late_status, loan_money, late_status, min_demand_money,
+               max_demand_money, loan_type, c.user_id, follow_times, first_assign_time, last_assign_time,
+               last_remark_time,
+               c.create_time,
+               c.update_time,
+               u.user_name
+        from st02_crm_customer c
+        left join sys_user u on c.user_id = u.user_id
+    </sql>
+
+    <select id="selectCustomerPublicList" parameterType="CustomerReqVo" resultMap="St02CrmCustomerResult">
+        <include refid="selectTeamCustomerVo"/>
+        <where> c.user_id is null
+        <if test="id != null "> and c.id = #{id}</if>
+        <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+        <if test="status != null "> and status = #{status}</if>
+        <if test="level != null "> and level = #{level}</if>
+        <if test="source != null  and source != ''"> and source = #{source}</if>
+        <if test="loanType != null "> and loan_type = #{loanType}</if>
+        <if test="carInfo != null "> and car_info = #{carInfo}</if>
+        <if test="propertyInfo != null "> and property_info = #{propertyInfo}</if>
+        <if test="policyInfo != null "> and policy_info = #{policyInfo}</if>
+        <if test="minDemandMoney != null "> and min_demand_money = #{minDemandMoney}</if>
+        <if test="maxDemandMoney != null "> and max_demand_money = #{maxDemandMoney}</if>
+        <if test="userId != null "> and user_id = #{userId}</if>
+        <if test="followTimes != null "> and follow_times = #{followTimes}</if>
+        <if test="lastRemarkTime != null "> and last_remark_time &lt; #{lastRemarkTime}</if>
+        <if test="minFirstAssignTime != null "> and first_assign_time &gt;= #{minFirstAssignTime}</if>
+        <if test="maxFirstAssignTime != null "> and first_assign_time &lt; #{maxFirstAssignTime}</if>
+        <if test="minLastAssignTime != null "> and last_assign_time &gt;= #{minLastAssignTime}</if>
+        <if test="maxLastAssignTime != null "> and last_assign_time &lt; #{maxLastAssignTime}</if>
+        <if test="createTime != null "> and create_time &gt;= #{minCreateTime}</if>
+        <if test="createTime != null "> and create_time &lt;= #{maxCreateTime}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectSt02CrmCustomerList" parameterType="St02CrmCustomer" resultMap="St02CrmCustomerResult">
+        <include refid="selectSt02CrmCustomerVo"/>
+        <where>
+            <if test="source != null  and source != ''"> and source = #{source}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone like concat(#{phone}, '%')</if>
+            <if test="type != null "> and type = #{type}</if>
+            <if test="age != null  and age != ''"> and age = #{age}</if>
+            <if test="sex != null "> and sex = #{sex}</if>
+            <if test="region != null  and region != ''"> and region = #{region}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="maritalStatus != null "> and marital_status = #{maritalStatus}</if>
+            <if test="otherKnow != null "> and other_know = #{otherKnow}</if>
+            <if test="sesameCredit != null "> and sesame_credit = #{sesameCredit}</if>
+            <if test="microLoans != null  and microLoans != ''"> and micro_loans = #{microLoans}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="level != null "> and level = #{level}</if>
+            <if test="legalPerson != null "> and legal_person = #{legalPerson}</if>
+            <if test="appliYear != null "> and appli_year = #{appliYear}</if>
+            <if test="socialSecurity != null "> and social_security = #{socialSecurity}</if>
+            <if test="socialSecurityYear != null "> and social_security_year = #{socialSecurityYear}</if>
+            <if test="socialSecurityMoney != null "> and social_security_money = #{socialSecurityMoney}</if>
+            <if test="accFund != null "> and acc_fund = #{accFund}</if>
+            <if test="accFundYear != null "> and acc_fund_year = #{accFundYear}</if>
+            <if test="accFundMoney != null "> and acc_fund_money = #{accFundMoney}</if>
+            <if test="professional != null "> and professional = #{professional}</if>
+            <if test="professionalType != null "> and professional_type = #{professionalType}</if>
+            <if test="payMoney != null "> and pay_money = #{payMoney}</if>
+            <if test="payType != null "> and pay_type = #{payType}</if>
+            <if test="propertyInfo != null "> and property_info = #{propertyInfo}</if>
+            <if test="propertyStatus != null "> and property_status = #{propertyStatus}</if>
+            <if test="area != null "> and area = #{area}</if>
+            <if test="worth != null "> and worth = #{worth}</if>
+            <if test="ownerType != null "> and owner_type = #{ownerType}</if>
+            <if test="houseCity != null  and houseCity != ''"> and house_city = #{houseCity}</if>
+            <if test="mortgageTime != null "> and mortgage_time = #{mortgageTime}</if>
+            <if test="mortgageMoney != null "> and mortgage_money = #{mortgageMoney}</if>
+            <if test="mortgageBank != null  and mortgageBank != ''"> and mortgage_bank = #{mortgageBank}</if>
+            <if test="carInfo != null "> and car_info = #{carInfo}</if>
+            <if test="carStatus != null "> and car_status = #{carStatus}</if>
+            <if test="carTermYear != null "> and car_term_year = #{carTermYear}</if>
+            <if test="carPrice != null  and carPrice != ''"> and car_price = #{carPrice}</if>
+            <if test="carCity != null  and carCity != ''"> and car_city = #{carCity}</if>
+            <if test="carBrand != null  and carBrand != ''"> and car_brand = #{carBrand}</if>
+            <if test="carMortgageTime != null "> and car_mortgage_time = #{carMortgageTime}</if>
+            <if test="carMortgageMoney != null "> and car_mortgage_money = #{carMortgageMoney}</if>
+            <if test="carMortgageBank != null  and carMortgageBank != ''"> and car_mortgage_bank = #{carMortgageBank}</if>
+            <if test="policyInfo != null "> and policy_info = #{policyInfo}</if>
+            <if test="insuranceCompany != null  and insuranceCompany != ''"> and insurance_company = #{insuranceCompany}</if>
+            <if test="insurancePayType != null "> and insurance_pay_type = #{insurancePayType}</if>
+            <if test="insurancePayTimes != null  and insurancePayTimes != ''"> and insurance_pay_times = #{insurancePayTimes}</if>
+            <if test="creditCardInfo != null "> and credit_card_info = #{creditCardInfo}</if>
+            <if test="creditCardMoney != null "> and credit_card_money = #{creditCardMoney}</if>
+            <if test="creditCardLateStatus != null "> and credit_card_late_status = #{creditCardLateStatus}</if>
+            <if test="loanMoney != null "> and loan_money = #{loanMoney}</if>
+            <if test="lateStatus != null "> and late_status = #{lateStatus}</if>
+            <if test="minDemandMoney != null "> and min_demand_money = #{minDemandMoney}</if>
+            <if test="maxDemandMoney != null "> and max_demand_money = #{maxDemandMoney}</if>
+            <if test="loanType != null "> and loan_type = #{loanType}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="followTimes != null "> and follow_times = #{followTimes}</if>
+            <if test="firstAssignTime != null "> and first_assign_time = #{firstAssignTime}</if>
+            <if test="lastAssignTime != null "> and last_assign_time = #{lastAssignTime}</if>
+            <if test="lastRemarkTime != null "> and last_remark_time = #{lastRemarkTime}</if>
+        </where>
+    </select>
+
+    <select id="selectCrmCustomerList" parameterType="CustomerReqVo" resultMap="St02CrmCustomerResult">
+        <include refid="selectSt02CrmCustomerVo"/>
+        <where>
+            <if test="id != null "> and id = #{id}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="level != null "> and level = #{level}</if>
+            <if test="source != null  and source != ''"> and source = #{source}</if>
+            <if test="loanType != null "> and loan_type = #{loanType}</if>
+            <if test="carInfo != null "> and car_info = #{carInfo}</if>
+            <if test="propertyInfo != null "> and property_info = #{propertyInfo}</if>
+            <if test="policyInfo != null "> and policy_info = #{policyInfo}</if>
+            <if test="minDemandMoney != null "> and min_demand_money = #{minDemandMoney}</if>
+            <if test="maxDemandMoney != null "> and max_demand_money = #{maxDemandMoney}</if>
+            <if test="userId != null "> and user_id in ( ${userId} )</if>
+            <if test="followTimes != null "> and follow_times = #{followTimes}</if>
+            <if test="lastRemarkTime != null "> and last_remark_time &lt; #{lastRemarkTime}</if>
+            <if test="minFirstAssignTime != null "> and first_assign_time &gt;= #{minFirstAssignTime}</if>
+            <if test="maxFirstAssignTime != null "> and first_assign_time &lt; #{maxFirstAssignTime}</if>
+            <if test="minLastAssignTime != null "> and last_assign_time &gt;= #{minLastAssignTime}</if>
+            <if test="maxLastAssignTime != null "> and last_assign_time &lt; #{maxLastAssignTime}</if>
+            <if test="createTime != null "> and create_time &gt;= #{minCreateTime}</if>
+            <if test="createTime != null "> and create_time &lt;= #{maxCreateTime}</if>
+        </where>group by id order by id desc
+    </select>
+
+    <select id="selectCrmCustomerListOwner" parameterType="CustomerReqVo" resultMap="St02CrmCustomerResult">
+        <include refid="selectSt02CrmCustomerVo"/>
+        <where>
+            <if test="id != null "> and id = #{id}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="status != null "> and status = #{status} and status != 1</if>
+            <if test="level != null "> and level = #{level}</if>
+            <if test="source != null  and source != ''"> and source = #{source}</if>
+            <if test="loanType != null "> and loan_type = #{loanType}</if>
+            <if test="carInfo != null "> and car_info = #{carInfo}</if>
+            <if test="propertyInfo != null "> and property_info = #{propertyInfo}</if>
+            <if test="policyInfo != null "> and policy_info = #{policyInfo}</if>
+            <if test="minDemandMoney != null "> and min_demand_money = #{minDemandMoney}</if>
+            <if test="maxDemandMoney != null "> and max_demand_money = #{maxDemandMoney}</if>
+            <if test="userId != null "> and user_id in ( ${userId} )</if>
+            <if test="followTimes != null "> and follow_times = #{followTimes}</if>
+            <if test="lastRemarkTime != null "> and last_remark_time &lt; #{lastRemarkTime}</if>
+            <if test="minFirstAssignTime != null "> and first_assign_time &gt;= #{minFirstAssignTime}</if>
+            <if test="maxFirstAssignTime != null "> and first_assign_time &lt; #{maxFirstAssignTime}</if>
+            <if test="minLastAssignTime != null "> and last_assign_time &gt;= #{minLastAssignTime}</if>
+            <if test="maxLastAssignTime != null "> and last_assign_time &lt; #{maxLastAssignTime}</if>
+            <if test="createTime != null "> and create_time &gt;= #{minCreateTime}</if>
+            <if test="createTime != null "> and create_time &lt;= #{maxCreateTime}</if>
+        </where>group by id order by id desc
+    </select>
+
+    <select id="selectTeamCustomerList"  parameterType="CustomerReqVo" resultMap="St02CrmCustomerTeamResult">
+        <include refid="selectTeamCustomerVo"/>
+        <where> c.user_id in (${userId})
+            <if test="id != null "> and c.id = #{id}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="status != null "> and c.status = #{status}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="level != null "> and level = #{level}</if>
+            <if test="source != null  and source != ''"> and source = #{source}</if>
+            <if test="loanType != null "> and loan_type = #{loanType}</if>
+            <if test="carInfo != null "> and car_info = #{carInfo}</if>
+            <if test="propertyInfo != null "> and property_info = #{propertyInfo}</if>
+            <if test="policyInfo != null "> and policy_info = #{policyInfo}</if>
+            <if test="minDemandMoney != null "> and min_demand_money = #{minDemandMoney}</if>
+            <if test="maxDemandMoney != null "> and max_demand_money = #{maxDemandMoney}</if>
+            <if test="followTimes != null "> and follow_times = #{followTimes}</if>
+            <if test="lastRemarkTime != null "> and last_remark_time &lt; #{lastRemarkTime}</if>
+            <if test="minFirstAssignTime != null "> and first_assign_time &gt;= #{minFirstAssignTime}</if>
+            <if test="maxFirstAssignTime != null "> and first_assign_time &lt; #{maxFirstAssignTime}</if>
+            <if test="minLastAssignTime != null "> and last_assign_time &gt;= #{minLastAssignTime}</if>
+            <if test="maxLastAssignTime != null "> and last_assign_time &lt; #{maxLastAssignTime}</if>
+            <if test="createTime != null "> and c.create_time &gt;= #{minCreateTime}</if>
+            <if test="createTime != null "> and c.create_time &lt;= #{maxCreateTime}</if>
+        </where>
+        order by last_remark_time desc, last_assign_time desc
+    </select>
+
+    <select id="selectSt02CrmCustomerById" parameterType="Long" resultMap="St02CrmCustomerResult">
+        <include refid="selectSt02CrmCustomerVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectSt02CrmCustomerByIds" parameterType="String" resultMap="St02CrmCustomerResult">
+        <include refid="selectSt02CrmCustomerVo"/>
+        where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <insert id="insertSt02CrmCustomer" parameterType="St02CrmCustomer" useGeneratedKeys="true" keyProperty="id">
+        insert into st02_crm_customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="source != null">source,</if>
+            <if test="name != null">name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="type != null">type,</if>
+            <if test="age != null">age,</if>
+            <if test="sex != null">sex,</if>
+            <if test="region != null">region,</if>
+            <if test="city != null">city,</if>
+            <if test="maritalStatus != null">marital_status,</if>
+            <if test="otherKnow != null">other_know,</if>
+            <if test="sesameCredit != null">sesame_credit,</if>
+            <if test="microLoans != null">micro_loans,</if>
+            <if test="status != null">status,</if>
+            <if test="level != null">level,</if>
+            <if test="legalPerson != null">legal_person,</if>
+            <if test="appliYear != null">appli_year,</if>
+            <if test="socialSecurity != null">social_security,</if>
+            <if test="socialSecurityYear != null">social_security_year,</if>
+            <if test="socialSecurityMoney != null">social_security_money,</if>
+            <if test="accFund != null">acc_fund,</if>
+            <if test="accFundYear != null">acc_fund_year,</if>
+            <if test="accFundMoney != null">acc_fund_money,</if>
+            <if test="professional != null">professional,</if>
+            <if test="professionalType != null">professional_type,</if>
+            <if test="payMoney != null">pay_money,</if>
+            <if test="payType != null">pay_type,</if>
+            <if test="propertyInfo != null">property_info,</if>
+            <if test="propertyStatus != null">property_status,</if>
+            <if test="area != null">area,</if>
+            <if test="worth != null">worth,</if>
+            <if test="ownerType != null">owner_type,</if>
+            <if test="houseCity != null">house_city,</if>
+            <if test="mortgageTime != null">mortgage_time,</if>
+            <if test="mortgageMoney != null">mortgage_money,</if>
+            <if test="mortgageBank != null">mortgage_bank,</if>
+            <if test="carInfo != null">car_info,</if>
+            <if test="carStatus != null">car_status,</if>
+            <if test="carTermYear != null">car_term_year,</if>
+            <if test="carPrice != null">car_price,</if>
+            <if test="carCity != null">car_city,</if>
+            <if test="carBrand != null">car_brand,</if>
+            <if test="carMortgageTime != null">car_mortgage_time,</if>
+            <if test="carMortgageMoney != null">car_mortgage_money,</if>
+            <if test="carMortgageBank != null">car_mortgage_bank,</if>
+            <if test="policyInfo != null">policy_info,</if>
+            <if test="insuranceCompany != null">insurance_company,</if>
+            <if test="insurancePayType != null">insurance_pay_type,</if>
+            <if test="insurancePayTimes != null">insurance_pay_times,</if>
+            <if test="creditCardInfo != null">credit_card_info,</if>
+            <if test="creditCardMoney != null">credit_card_money,</if>
+            <if test="creditCardLateStatus != null">credit_card_late_status,</if>
+            <if test="loanMoney != null">loan_money,</if>
+            <if test="lateStatus != null">late_status,</if>
+            <if test="minDemandMoney != null">min_demand_money,</if>
+            <if test="maxDemandMoney != null">max_demand_money,</if>
+            <if test="loanType != null">loan_type,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="followTimes != null">follow_times,</if>
+            <if test="firstAssignTime != null">first_assign_time,</if>
+            <if test="lastAssignTime != null">last_assign_time,</if>
+            <if test="lastRemarkTime != null">last_remark_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="source != null">#{source},</if>
+            <if test="name != null">#{name},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="type != null">#{type},</if>
+            <if test="age != null">#{age},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="region != null">#{region},</if>
+            <if test="city != null">#{city},</if>
+            <if test="maritalStatus != null">#{maritalStatus},</if>
+            <if test="otherKnow != null">#{otherKnow},</if>
+            <if test="sesameCredit != null">#{sesameCredit},</if>
+            <if test="microLoans != null">#{microLoans},</if>
+            <if test="status != null">#{status},</if>
+            <if test="level != null">#{level},</if>
+            <if test="legalPerson != null">#{legalPerson},</if>
+            <if test="appliYear != null">#{appliYear},</if>
+            <if test="socialSecurity != null">#{socialSecurity},</if>
+            <if test="socialSecurityYear != null">#{socialSecurityYear},</if>
+            <if test="socialSecurityMoney != null">#{socialSecurityMoney},</if>
+            <if test="accFund != null">#{accFund},</if>
+            <if test="accFundYear != null">#{accFundYear},</if>
+            <if test="accFundMoney != null">#{accFundMoney},</if>
+            <if test="professional != null">#{professional},</if>
+            <if test="professionalType != null">#{professionalType},</if>
+            <if test="payMoney != null">#{payMoney},</if>
+            <if test="payType != null">#{payType},</if>
+            <if test="propertyInfo != null">#{propertyInfo},</if>
+            <if test="propertyStatus != null">#{propertyStatus},</if>
+            <if test="area != null">#{area},</if>
+            <if test="worth != null">#{worth},</if>
+            <if test="ownerType != null">#{ownerType},</if>
+            <if test="houseCity != null">#{houseCity},</if>
+            <if test="mortgageTime != null">#{mortgageTime},</if>
+            <if test="mortgageMoney != null">#{mortgageMoney},</if>
+            <if test="mortgageBank != null">#{mortgageBank},</if>
+            <if test="carInfo != null">#{carInfo},</if>
+            <if test="carStatus != null">#{carStatus},</if>
+            <if test="carTermYear != null">#{carTermYear},</if>
+            <if test="carPrice != null">#{carPrice},</if>
+            <if test="carCity != null">#{carCity},</if>
+            <if test="carBrand != null">#{carBrand},</if>
+            <if test="carMortgageTime != null">#{carMortgageTime},</if>
+            <if test="carMortgageMoney != null">#{carMortgageMoney},</if>
+            <if test="carMortgageBank != null">#{carMortgageBank},</if>
+            <if test="policyInfo != null">#{policyInfo},</if>
+            <if test="insuranceCompany != null">#{insuranceCompany},</if>
+            <if test="insurancePayType != null">#{insurancePayType},</if>
+            <if test="insurancePayTimes != null">#{insurancePayTimes},</if>
+            <if test="creditCardInfo != null">#{creditCardInfo},</if>
+            <if test="creditCardMoney != null">#{creditCardMoney},</if>
+            <if test="creditCardLateStatus != null">#{creditCardLateStatus},</if>
+            <if test="loanMoney != null">#{loanMoney},</if>
+            <if test="lateStatus != null">#{lateStatus},</if>
+            <if test="minDemandMoney != null">#{minDemandMoney},</if>
+            <if test="maxDemandMoney != null">#{maxDemandMoney},</if>
+            <if test="loanType != null">#{loanType},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="followTimes != null">#{followTimes},</if>
+            <if test="firstAssignTime != null">#{firstAssignTime},</if>
+            <if test="lastAssignTime != null">#{lastAssignTime},</if>
+            <if test="lastRemarkTime != null">#{lastRemarkTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSt02CrmCustomer" parameterType="St02CrmCustomer">
+        update st02_crm_customer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="source != null">source = #{source},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="region != null">region = #{region},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="maritalStatus != null">marital_status = #{maritalStatus},</if>
+            <if test="otherKnow != null">other_know = #{otherKnow},</if>
+            <if test="sesameCredit != null">sesame_credit = #{sesameCredit},</if>
+            <if test="microLoans != null">micro_loans = #{microLoans},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="legalPerson != null">legal_person = #{legalPerson},</if>
+            <if test="appliYear != null">appli_year = #{appliYear},</if>
+            <if test="socialSecurity != null">social_security = #{socialSecurity},</if>
+            <if test="socialSecurityYear != null">social_security_year = #{socialSecurityYear},</if>
+            <if test="socialSecurityMoney != null">social_security_money = #{socialSecurityMoney},</if>
+            <if test="accFund != null">acc_fund = #{accFund},</if>
+            <if test="accFundYear != null">acc_fund_year = #{accFundYear},</if>
+            <if test="accFundMoney != null">acc_fund_money = #{accFundMoney},</if>
+            <if test="professional != null">professional = #{professional},</if>
+            <if test="professionalType != null">professional_type = #{professionalType},</if>
+            <if test="payMoney != null">pay_money = #{payMoney},</if>
+            <if test="payType != null">pay_type = #{payType},</if>
+            <if test="propertyInfo != null">property_info = #{propertyInfo},</if>
+            <if test="propertyStatus != null">property_status = #{propertyStatus},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="worth != null">worth = #{worth},</if>
+            <if test="ownerType != null">owner_type = #{ownerType},</if>
+            <if test="houseCity != null">house_city = #{houseCity},</if>
+            <if test="mortgageTime != null">mortgage_time = #{mortgageTime},</if>
+            <if test="mortgageMoney != null">mortgage_money = #{mortgageMoney},</if>
+            <if test="mortgageBank != null">mortgage_bank = #{mortgageBank},</if>
+            <if test="carInfo != null">car_info = #{carInfo},</if>
+            <if test="carStatus != null">car_status = #{carStatus},</if>
+            <if test="carTermYear != null">car_term_year = #{carTermYear},</if>
+            <if test="carPrice != null">car_price = #{carPrice},</if>
+            <if test="carCity != null">car_city = #{carCity},</if>
+            <if test="carBrand != null">car_brand = #{carBrand},</if>
+            <if test="carMortgageTime != null">car_mortgage_time = #{carMortgageTime},</if>
+            <if test="carMortgageMoney != null">car_mortgage_money = #{carMortgageMoney},</if>
+            <if test="carMortgageBank != null">car_mortgage_bank = #{carMortgageBank},</if>
+            <if test="policyInfo != null">policy_info = #{policyInfo},</if>
+            <if test="insuranceCompany != null">insurance_company = #{insuranceCompany},</if>
+            <if test="insurancePayType != null">insurance_pay_type = #{insurancePayType},</if>
+            <if test="insurancePayTimes != null">insurance_pay_times = #{insurancePayTimes},</if>
+            <if test="creditCardInfo != null">credit_card_info = #{creditCardInfo},</if>
+            <if test="creditCardMoney != null">credit_card_money = #{creditCardMoney},</if>
+            <if test="creditCardLateStatus != null">credit_card_late_status = #{creditCardLateStatus},</if>
+            <if test="loanMoney != null">loan_money = #{loanMoney},</if>
+            <if test="lateStatus != null">late_status = #{lateStatus},</if>
+            <if test="minDemandMoney != null">min_demand_money = #{minDemandMoney},</if>
+            <if test="maxDemandMoney != null">max_demand_money = #{maxDemandMoney},</if>
+            <if test="loanType != null">loan_type = #{loanType},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="followTimes != null">follow_times = #{followTimes},</if>
+            <if test="firstAssignTime != null">first_assign_time = #{firstAssignTime},</if>
+            <if test="lastAssignTime != null">last_assign_time = #{lastAssignTime},</if>
+            <if test="lastRemarkTime != null">last_remark_time = #{lastRemarkTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSt02CrmCustomerById" parameterType="Long">
+        delete from st02_crm_customer where id = #{id}
+    </delete>
+
+    <delete id="deleteSt02CrmCustomerByIds" parameterType="String">
+        delete from st02_crm_customer where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="assignCustomerUserIdByIds"  parameterType="map" >
+        update st02_crm_customer set user_id = ${userId} where id in
+        <foreach collection="customerIds" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="removeCustomerUserIdByIds" parameterType="String">
+        update st02_crm_customer set user_id = NULL where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="autoRemoveCustomer2Public" parameterType="String">
+        update st02_crm_customer set user_id = NULL where last_remark_time &lt; #{lastRemarkDate} and user_id is not null
+    </update>
+
+    <select id="selectLoanChannelType" resultType="java.lang.String">
+        select distinct source from st02_crm_customer
+    </select>
+
+</mapper>

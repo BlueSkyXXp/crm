@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St02CrmVisitInfoMapper">
+    
+    <resultMap type="St02CrmVisitInfo" id="St02CrmVisitInfoResult">
+        <result property="id"    column="id"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="remark"    column="remark"    />
+        <result property="userId"    column="user_id"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+
+    <resultMap type="St02CrmVisitResultInfo" id="St02CrmVisitResult">
+        <result property="userId"    column="user_id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="userName"    column="userName"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="times"    column="times"    />
+    </resultMap>
+
+
+    <resultMap type="St02CrmVisitDetail" id="St02CrmVisitDetailResult">
+        <result property="userId"    column="userId"    />
+        <result property="userName"    column="userName"    />
+        <result property="customerId"    column="customerId"    />
+        <result property="customerName"    column="customerName"    />
+        <result property="createTime"    column="createTime"    />
+        <result property="remark"    column="remark"    />
+        <result property="phone"    column="phone"    />
+    </resultMap>
+
+    <select id="selectCrmVisitResult" parameterType="VisitReqVo" resultMap="St02CrmVisitResult">
+        select dept.dept_name as dept_name, dept.dept_id as dept_id, user.user_name as userName, user.user_id as userId, count(1) as times
+        from st02_crm_visit_info visit, sys_dept dept, sys_user user
+        <where>
+            user.user_id = visit.user_id and user.dept_id = dept.dept_id
+            and visit.create_time &gt;= #{startTime} and visit.create_time &lt;= #{endTime}
+            <if test="deptId != null "> and dept_id like concat('%,', #{deptId}, ',%')</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+        </where> group by user.user_id
+    </select>
+
+    <sql id="selectSt02CrmVisitInfoVo">
+        select id, customer_id, remark, user_id, create_time from st02_crm_visit_info
+    </sql>
+
+
+
+    <select id="selectSt02CrmVisitDetailList" parameterType="VisitReqVo" resultMap="St02CrmVisitDetailResult">
+        select dept.dept_name as dept_name, dept.dept_id as dept_id,
+               user.user_name as userName, user.user_id as userId,
+               customer.name as customerName, customer.id as customerId,
+               customer.phone as phone,
+               visit.id as id, visit.remark as remark,  visit.create_time as createTime
+        from st02_crm_visit_info visit
+            left join sys_user user on visit.user_id = user.user_id
+                left join st02_crm_customer customer on visit.customer_id = customer.id
+                left join sys_dept dept on user.dept_id = dept.dept_id
+        <where>
+            <if test="userId != null "> and visit.user_id = #{userId}</if>
+            <if test="startTime != null "> and visit.create_time &gt;= #{startTime}</if>
+            <if test="endTime != null "> and visit.create_time &lt;= #{endTime}</if>
+        </where>
+        order by visit.create_time desc
+    </select>
+
+
+    <select id="selectSt02CrmVisitInfoList" parameterType="St02CrmVisitInfo" resultMap="St02CrmVisitInfoResult">
+        <include refid="selectSt02CrmVisitInfoVo"/>
+        <where>
+            <if test="customerId != null "> and customer_id = #{customerId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+        </where>
+    </select>
+
+    
+    <select id="selectSt02CrmVisitInfoById" parameterType="Long" resultMap="St02CrmVisitInfoResult">
+        <include refid="selectSt02CrmVisitInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSt02CrmVisitInfo" parameterType="St02CrmVisitInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into st02_crm_visit_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">customer_id,</if>
+            <if test="remark != null">remark,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">#{customerId},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSt02CrmVisitInfo" parameterType="St02CrmVisitInfo">
+        update st02_crm_visit_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSt02CrmVisitInfoById" parameterType="Long">
+        delete from st02_crm_visit_info where id = #{id}
+    </delete>
+
+    <delete id="deleteSt02CrmVisitInfoByIds" parameterType="String">
+        delete from st02_crm_visit_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

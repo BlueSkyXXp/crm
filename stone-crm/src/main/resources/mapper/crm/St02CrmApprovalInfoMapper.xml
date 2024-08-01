@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St02CrmApprovalInfoMapper">
+
+    <resultMap type="St02CrmApprovalInfo" id="St02CrmApprovalInfoResult">
+        <result property="id"    column="id"    />
+        <result property="recdate"    column="recdate"    />
+        <result property="type"    column="type"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="customerName"    column="customer_name"    />
+        <result property="status"    column="status"    />
+        <result property="payType"    column="pay_type"    />
+        <result property="approvalBank"    column="approval_bank"    />
+        <result property="bankManager"    column="bank_manager"    />
+        <result property="rates"    column="rates"    />
+        <result property="money"    column="money"    />
+        <result property="approMoney"    column="appro_money"    />
+        <result property="collectMoney"    column="collect_money"    />
+        <result property="collectDate"    column="collect_date"    />
+        <result property="costMoney"    column="cost_money"    />
+        <result property="sincerityMoney"    column="sincerity_money"    />
+        <result property="profit"    column="profit"    />
+        <result property="collectBank"    column="collect_bank"    />
+        <result property="remark"    column="remark"    />
+        <result property="operatorName"    column="operator_name"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectSt02CrmApprovalInfoVo">
+        select id, recdate, type, user_id, customer_id, customer_name, status, pay_type, approval_bank, bank_manager, rates, money, appro_money, collect_money, collect_date, cost_money, sincerity_money, profit, collect_bank, remark, create_time, update_time from st02_crm_approval_info
+    </sql>
+
+    <select id="selectSt02CrmApprovalInfoList" parameterType="ApprovalInfoReqVo" resultMap="St02CrmApprovalInfoResult">
+        select approval.id as id, approval.recdate as recdate, approval.type as type, user.user_id as user_id,
+               user.user_name as user_name, approval.customer_id as customer_id, customer.name as customer_name,
+        approval.status as status, approval.pay_type as pay_type, approval.approval_bank as approval_bank,
+        approval.bank_manager as bank_manager,
+        approval.rates as rates, approval.money as money, approval.appro_money as appro_money,
+        approval.collect_money as collect_money, approval.collect_date as collect_date,
+        approval.cost_money as cost_money, approval.sincerity_money as sincerity_money, approval.profit as profit,
+        approval.collect_bank as collect_bank, approval.remark as remark,
+        approval.operator_name as operator_name, approval.create_time as create_time,
+        approval.update_time as update_time
+        from st02_crm_approval_info approval, sys_user user, sys_dept dept, st02_crm_customer customer
+        <where>
+             user.dept_id = dept.dept_id and user.user_id = approval.user_id and approval.customer_id = customer.id
+            <if test="startTime != null "> and approval.create_time &gt;= #{startTime}</if>
+            <if test="endTime != null "> and approval.create_time &lt;= #{endTime}</if>
+            <if test="type != null "> and approval.type = #{type}</if>
+            <if test="userIds != null "> and approval.user_id in (${userIds} )</if>
+            <if test="customerName != null  and customerName != ''"> and approval.customer_name like concat('%', #{customerName}, '%')</if>
+            <if test="status != null "> and approval.status = #{status}</if>
+            <if test="bankManager != null  and bankManager != ''"> and approval.bank_manager = #{bankManager}</if>
+            <if test="bank != null  and bank != ''"> and approval.approval_bank = #{bank}</if>
+            <if test="deptId != null "> AND dept.ancestors like concat('%,', #{deptId}, '%')</if>
+        </where>
+    </select>
+
+    <resultMap type="St02CrmApprovalResult" id="St02CrmApprovalInfoReqResult">
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="monthlyRevenue"    column="monthly_revenue"    />
+        <result property="monthlyCnt"    column="monthly_cnt"    />
+        <result property="monthlyPayCnt"    column="monthly_pay_cnt"    />
+        <result property="dailyRevenue"    column="daily_revenue"    />
+        <result property="dailyCnt"    column="daily_cnt"    />
+        <result property="dailyPayCnt"    column="daily_pay_cnt"    />
+        <result property="monthlyAppro"    column="monthly_appro"    />
+        <result property="yearRevenue"    column="year_revenue"    />
+        <result property="visitMonthlyCnt"    column="visit_monthly_cnt"    />
+        <result property="visitDailyCnt"    column="visit_daily_cnt"    />
+        <result property="flowMonthlyCnt"    column="flow_monthly_cnt"    />
+        <result property="flowDailyCnt"    column="flow_daily_cnt"    />
+    </resultMap>
+
+    <select id="selectPersonFlowList" parameterType="ApprovalReqVo" resultMap="St02CrmApprovalInfoReqResult">
+        select user_id,
+               (select user_name from sys_user where user_id = flow.user_id)   AS user_name,
+        count(1)                                                          as flow_monthly_cnt,
+        sum(CASE WHEN DATE(create_time) = CURRENT_DATE THEN 1 ELSE 0 END) as flow_daily_cnt
+        from st02_crm_customer_flow_info flow
+        where create_time &gt;= #{startTime} and create_time &lt;= #{endTime}
+        and source_plat = 'API'
+        group by user_id
+    </select>
+    <select id="selectPersonVisitList" parameterType="ApprovalReqVo" resultMap="St02CrmApprovalInfoReqResult">
+        select user_id,
+               (select user_name from sys_user where user_id = visit.user_id)   AS user_name,
+        count(1)                                                          as visit_monthly_cnt,
+        sum(CASE WHEN DATE(create_time) = CURRENT_DATE THEN 1 ELSE 0 END) as visit_daily_cnt
+        from st02_crm_visit_info visit
+        where create_time &gt;= #{startTime} and create_time &lt;= #{endTime}
+        group by user_id
+    </select>
+
+    <select id="selectDeptFlowList" parameterType="ApprovalReqVo" resultMap="St02CrmApprovalInfoReqResult">
+        select dept_id,
+               (select dept_name from sys_dept where dept_id = user.dept_id)          AS dept_name,
+        count(1)                                                               as flow_monthly_cnt,
+        sum(CASE WHEN DATE(flow.create_time) = CURRENT_DATE THEN 1 ELSE 0 END) as flow_daily_cnt
+        from st02_crm_customer_flow_info flow
+        left join sys_user user on user.user_id = flow.user_id
+        where flow.create_time &gt;= #{startTime} and flow.create_time &lt;= #{endTime}
+        and source_plat = 'API'
+        group by user.dept_id
+    </select>
+    <select id="selectDeptVisitList" parameterType="ApprovalReqVo" resultMap="St02CrmApprovalInfoReqResult">
+        select dept_id,
+               (select dept_name from sys_dept where dept_id = user.dept_id)          AS dept_name,
+        count(1)                                                                as visit_monthly_cnt,
+        sum(CASE WHEN DATE(visit.create_time) = CURRENT_DATE THEN 1 ELSE 0 END) as visit_daily_cnt
+        from st02_crm_visit_info visit
+        left join sys_user user on user.user_id = visit.user_id
+        where visit.create_time &gt;= #{startTime} and visit.create_time &lt;= #{endTime}
+        group by user.dept_id
+    </select>
+
+    <select id="selectPersonResultList" parameterType="ApprovalReqVo" resultMap="St02CrmApprovalInfoReqResult">
+        SELECT approval.user_id                                                                                 AS user_id,
+               user.user_name                                                                                   AS user_name,
+               SUM(CASE WHEN approval.status = 3 THEN profit ELSE 0 END)                                        AS monthly_revenue,
+               count(1)                                                                                         AS monthly_cnt,
+               SUM(CASE WHEN approval.status = 3 THEN 1 ELSE 0 END)                                             AS monthly_pay_cnt,
+               SUM(CASE WHEN DATE(recdate) = CURRENT_DATE AND approval.status = 3 THEN profit ELSE 0 END)       AS daily_revenue,
+               SUM(CASE WHEN DATE(recdate) = CURRENT_DATE THEN 1 ELSE 0 END)                                  AS daily_cnt,
+               SUM(CASE WHEN DATE(recdate) = CURRENT_DATE AND approval.status = 3 THEN 1 ELSE 0 END)          AS daily_pay_cnt,
+               sum(appro_money)                                                                                 AS monthly_appro,
+               SUM(CASE WHEN year(recdate) = year(CURRENT_DATE) AND approval.status = 3 THEN profit ELSE 0 END) AS year_revenue
+        FROM st02_crm_approval_info approval
+            left join sys_user user on user.user_id = approval.user_id
+        WHERE recdate &gt;= #{startTime} and recdate &lt;= #{endTime} and approval.status = 3
+        GROUP BY approval.user_id order by monthly_revenue desc
+    </select>
+
+    <select id="selectDeptResultList" parameterType="ApprovalReqVo" resultMap="St02CrmApprovalInfoReqResult">
+        SELECT user.dept_id                                                                                     AS dept_id,
+               dept.dept_name                                                                                   AS dept_name,
+               SUM(CASE WHEN approval.status = 3 THEN profit ELSE 0 END)                                        AS monthly_revenue,
+               count(1)                                                                                         AS monthly_cnt,
+               SUM(CASE WHEN approval.status = 3 THEN 1 ELSE 0 END)                                             AS monthly_pay_cnt,
+               SUM(CASE WHEN DATE(recdate) = CURRENT_DATE THEN profit ELSE 0 END)       AS daily_revenue,
+               SUM(CASE WHEN DATE(recdate) = CURRENT_DATE THEN 1 ELSE 0 END)                                  AS daily_cnt,
+               SUM(CASE WHEN DATE(recdate) = CURRENT_DATE THEN 1 ELSE 0 END)          AS daily_pay_cnt,
+               sum(appro_money)                                                                                 AS monthly_appro,
+               SUM(CASE WHEN year(recdate) = year(CURRENT_DATE) THEN profit ELSE 0 END) AS year_revenue
+        FROM
+            st02_crm_approval_info approval
+            left join sys_user user on user.user_id = approval.user_id
+            left join sys_dept dept on user.dept_id = dept.dept_id
+        WHERE recdate &gt;= #{startTime} and recdate &lt;= #{endTime} and approval.status = 3
+        group by user.dept_id order by monthly_revenue desc
+    </select>
+
+    <select id="selectDeptParentResultList" parameterType="ApprovalReqVo" resultMap="St02CrmApprovalInfoReqResult">
+        SELECT dept.parent_id                                                        AS dept_id,
+        (select dept_name from sys_dept where dept_id = dept.parent_id)              AS dept_name,
+        sum(visit.visit_monthly_cnt)                                                 AS visit_monthly_cnt,
+        sum(visit.visit_daily_cnt  )                                                 AS visit_daily_cnt,
+        sum(flow.flow_monthly_cnt  )                                                 AS flow_monthly_cnt,
+        sum(flow.flow_daily_cnt    )                                                 AS flow_daily_cnt,
+        SUM(CASE WHEN approval.status = 3 THEN profit ELSE 0 END)                AS monthly_revenue,
+        count(1)                                                                 AS monthly_cnt,
+        SUM(CASE WHEN approval.status = 3 THEN 1 ELSE 0 END)                     AS monthly_pay_cnt,
+        SUM(CASE WHEN DATE(recdate) = CURRENT_DATE THEN profit ELSE 0 END)       AS daily_revenue,
+        SUM(CASE WHEN DATE(recdate) = CURRENT_DATE THEN 1 ELSE 0 END)          AS daily_cnt,
+        SUM(CASE WHEN DATE(recdate) = CURRENT_DATE THEN 1 ELSE 0 END)          AS daily_pay_cnt,
+        sum(appro_money)                                                         AS monthly_appro,
+        SUM(CASE WHEN year(recdate) = year(CURRENT_DATE) THEN profit ELSE 0 END) AS year_revenue
+        FROM st02_crm_approval_info approval
+        left join sys_user user on user.user_id = approval.user_id
+        left join sys_dept dept on user.dept_id = dept.dept_id
+        left join (select user_id,count(1) as visit_monthly_cnt,sum(CASE WHEN DATE(create_time) = CURRENT_DATE THEN 1 ELSE 0 END) as visit_daily_cnt from st02_crm_visit_info where create_time &gt;= #{startTime} and create_time &lt;= #{endTime} group by user_id ) as visit on visit.user_id = approval.user_id
+        left join (select user_id, count(1) as flow_monthly_cnt,  sum(CASE WHEN DATE(create_time) = CURRENT_DATE THEN 1 ELSE 0 END) as flow_daily_cnt from st02_crm_customer_flow_info where create_time &gt;= #{startTime} and create_time &lt;= #{endTime} and source_plat = 'API' group by user_id ) as flow on flow.user_id = approval.user_id
+        WHERE recdate &gt;= #{startTime} and recdate &lt;= #{endTime} and approval.status = 3
+        group by dept.parent_id order by monthly_revenue desc
+    </select>
+
+    <select id="selectResultList" parameterType="ApprovalReqVo" resultMap="St02CrmApprovalInfoReqResult">
+        select
+        (select count(1) as visit_monthly_cnt from st02_crm_visit_info where create_time &gt;= #{startTime} and create_time &lt;= #{endTime} ) AS visit_monthly_cnt,
+        (select sum(CASE WHEN DATE(create_time) = CURRENT_DATE THEN 1 ELSE 0 END) as visit_daily_cnt from st02_crm_visit_info where create_time &gt;= #{startTime} and create_time &lt;= #{endTime} ) AS visit_daily_cnt,
+        (select count(1) as flow_monthly_cnt from st02_crm_customer_flow_info where create_time &gt;= #{startTime} and create_time &lt;= #{endTime} and source_plat = 'API') AS flow_monthly_cnt,
+        (select sum(CASE WHEN DATE(create_time) = CURRENT_DATE THEN 1 ELSE 0 END) as flow_daily_cnt from st02_crm_customer_flow_info where create_time &gt;= #{startTime} and create_time &lt;= #{endTime} and source_plat = 'API') AS flow_daily_cnt,
+        SUM(CASE WHEN approval.status = 3 THEN profit ELSE 0 END)                                        AS monthly_revenue,
+        count(1)                                                                                         AS monthly_cnt,
+        SUM(CASE WHEN approval.status = 3 THEN 1 ELSE 0 END)                                             AS monthly_pay_cnt,
+        SUM(CASE WHEN DATE(recdate) = CURRENT_DATE THEN profit ELSE 0 END)       AS daily_revenue,
+        SUM(CASE WHEN DATE(recdate) = CURRENT_DATE THEN 1 ELSE 0 END)                                  AS daily_cnt,
+        SUM(CASE WHEN DATE(recdate) = CURRENT_DATE THEN 1 ELSE 0 END)          AS daily_pay_cnt,
+        sum(appro_money)                                                                                 AS monthly_appro,
+        SUM(CASE WHEN year(recdate) = year(CURRENT_DATE) THEN profit ELSE 0 END) AS year_revenue
+        FROM st02_crm_approval_info approval
+        left join sys_user user on user.user_id = approval.user_id
+        WHERE recdate &gt;= #{startTime} and recdate &lt;= #{endTime} and approval.status = 3
+        order by monthly_revenue desc
+    </select>
+
+<!--    <select id="selectSt02CrmApprovalInfoList" parameterType="St02CrmApprovalInfo" resultMap="St02CrmApprovalInfoResult">-->
+<!--        <include refid="selectSt02CrmApprovalInfoVo"/>-->
+<!--        <where>-->
+<!--            <if test="recdate != null  and recdate != ''"> and recdate = #{recdate}</if>-->
+<!--            <if test="type != null "> and type = #{type}</if>-->
+<!--            <if test="userId != null "> and user_id = #{userId}</if>-->
+<!--            <if test="customerId != null "> and customer_id = #{customerId}</if>-->
+<!--            <if test="customerName != null  and customerName != ''"> and customer_name like concat('%', #{customerName}, '%')</if>-->
+<!--            <if test="status != null "> and status = #{status}</if>-->
+<!--            <if test="payType != null  and payType != ''"> and pay_type = #{payType}</if>-->
+<!--            <if test="approvalBank != null  and approvalBank != ''"> and approval_bank = #{approvalBank}</if>-->
+<!--            <if test="bankManager != null  and bankManager != ''"> and bank_manager = #{bankManager}</if>-->
+<!--            <if test="rates != null "> and rates = #{rates}</if>-->
+<!--            <if test="money != null "> and money = #{money}</if>-->
+<!--            <if test="approMoney != null "> and appro_money = #{approMoney}</if>-->
+<!--            <if test="collectMoney != null "> and collect_money = #{collectMoney}</if>-->
+<!--            <if test="collectDate != null  and collectDate != ''"> and collect_date = #{collectDate}</if>-->
+<!--            <if test="costMoney != null "> and cost_money = #{costMoney}</if>-->
+<!--            <if test="sincerityMoney != null "> and sincerity_money = #{sincerityMoney}</if>-->
+<!--            <if test="profit != null "> and profit = #{profit}</if>-->
+<!--            <if test="collectBank != null  and collectBank != ''"> and collect_bank = #{collectBank}</if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+    <select id="selectSt02CrmApprovalInfoById" parameterType="Long" resultMap="St02CrmApprovalInfoResult">
+        <include refid="selectSt02CrmApprovalInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSt02CrmApprovalInfo" parameterType="St02CrmApprovalInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into st02_crm_approval_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recdate != null">recdate,</if>
+            <if test="type != null">type,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="customerName != null">customer_name,</if>
+            <if test="status != null">status,</if>
+            <if test="payType != null">pay_type,</if>
+            <if test="approvalBank != null">approval_bank,</if>
+            <if test="bankManager != null">bank_manager,</if>
+            <if test="rates != null">rates,</if>
+            <if test="money != null">money,</if>
+            <if test="approMoney != null">appro_money,</if>
+            <if test="collectMoney != null">collect_money,</if>
+            <if test="collectDate != null">collect_date,</if>
+            <if test="costMoney != null">cost_money,</if>
+            <if test="sincerityMoney != null">sincerity_money,</if>
+            <if test="profit != null">profit,</if>
+            <if test="collectBank != null">collect_bank,</if>
+            <if test="remark != null">remark,</if>
+            <if test="operatorName != null">operator_name,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recdate != null">#{recdate},</if>
+            <if test="type != null">#{type},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="customerName != null">#{customerName},</if>
+            <if test="status != null">#{status},</if>
+            <if test="payType != null">#{payType},</if>
+            <if test="approvalBank != null">#{approvalBank},</if>
+            <if test="bankManager != null">#{bankManager},</if>
+            <if test="rates != null">#{rates},</if>
+            <if test="money != null">#{money},</if>
+            <if test="approMoney != null">#{approMoney},</if>
+            <if test="collectMoney != null">#{collectMoney},</if>
+            <if test="collectDate != null">#{collectDate},</if>
+            <if test="costMoney != null">#{costMoney},</if>
+            <if test="sincerityMoney != null">#{sincerityMoney},</if>
+            <if test="profit != null">#{profit},</if>
+            <if test="collectBank != null">#{collectBank},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="operatorName != null">#{operatorName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSt02CrmApprovalInfo" parameterType="St02CrmApprovalInfo">
+        update st02_crm_approval_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="recdate != null">recdate = #{recdate},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="customerName != null">customer_name = #{customerName},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="payType != null">pay_type = #{payType},</if>
+            <if test="approvalBank != null">approval_bank = #{approvalBank},</if>
+            <if test="bankManager != null">bank_manager = #{bankManager},</if>
+            <if test="rates != null">rates = #{rates},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="approMoney != null">appro_money = #{approMoney},</if>
+            <if test="collectMoney != null">collect_money = #{collectMoney},</if>
+            <if test="collectDate != null">collect_date = #{collectDate},</if>
+            <if test="costMoney != null">cost_money = #{costMoney},</if>
+            <if test="sincerityMoney != null">sincerity_money = #{sincerityMoney},</if>
+            <if test="profit != null">profit = #{profit},</if>
+            <if test="collectBank != null">collect_bank = #{collectBank},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="operatorName != null">operator_name = #{operatorName},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSt02CrmApprovalInfoById" parameterType="Long">
+        delete from st02_crm_approval_info where id = #{id}
+    </delete>
+
+    <delete id="deleteSt02CrmApprovalInfoByIds" parameterType="String">
+        delete from st02_crm_approval_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

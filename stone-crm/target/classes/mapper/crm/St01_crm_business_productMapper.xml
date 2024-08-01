@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_business_productMapper">
+    
+    <resultMap type="st01_crm_business_product" id="st01_crm_business_productResult">
+        <result property="rId"    column="r_id"    />
+        <result property="businessId"    column="business_id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="price"    column="price"    />
+        <result property="salesPrice"    column="sales_price"    />
+        <result property="productNum"    column="num"    />
+        <result property="discount"    column="discount"    />
+        <result property="subtotal"    column="subtotal"    />
+        <result property="unit"    column="unit"    />
+    </resultMap>
+
+    <sql id="selectst01_crm_business_productVo">
+        select r_id, business_id, product_id, price, sales_price, num, discount, subtotal, unit from st01_crm_business_product
+    </sql>
+
+    <select id="selectst01_crm_business_productList" parameterType="st01_crm_business_product" resultMap="st01_crm_business_productResult">
+        select t.*,t1.product_name as productName from st01_crm_business_product t left join st01_crm_product t1
+        on t.product_id=t1.product_id where t.business_id=#{businessId}
+        order by t.r_id
+    </select>
+    
+    <select id="selectst01_crm_business_productByRId" parameterType="String" resultMap="st01_crm_business_productResult">
+        <include refid="selectst01_crm_business_productVo"/>
+        where r_id = #{rId}
+    </select>
+        
+    <insert id="insertst01_crm_business_product" parameterType="st01_crm_business_product">
+        insert into st01_crm_business_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rId != null">r_id,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="price != null">price,</if>
+            <if test="salesPrice != null">sales_price,</if>
+            <if test="productNum != null">num,</if>
+            <if test="discount != null">discount,</if>
+            <if test="subtotal != null">subtotal,</if>
+            <if test="unit != null">unit,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rId != null">#{rId},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="price != null">#{price},</if>
+            <if test="salesPrice != null">#{salesPrice},</if>
+            <if test="productNum != null">#{productNum},</if>
+            <if test="discount != null">#{discount},</if>
+            <if test="subtotal != null">#{subtotal},</if>
+            <if test="unit != null">#{unit},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_business_product" parameterType="st01_crm_business_product">
+        update st01_crm_business_product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="businessId != null">business_id = #{businessId},</if>
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="salesPrice != null">sales_price = #{salesPrice},</if>
+            <if test="productNum != null">num = #{productNum},</if>
+            <if test="discount != null">discount = #{discount},</if>
+            <if test="subtotal != null">subtotal = #{subtotal},</if>
+            <if test="unit != null">unit = #{unit},</if>
+        </trim>
+        where r_id = #{rId}
+    </update>
+
+    <delete id="deletest01_crm_business_productByRId" parameterType="String">
+        delete from st01_crm_business_product where r_id = #{rId}
+    </delete>
+
+    <delete id="deletest01_crm_business_productByBusinessId" parameterType="String">
+        delete from st01_crm_business_product where business_id = #{business_id}
+    </delete>
+
+    <delete id="deletest01_crm_business_productByRIds" parameterType="String">
+        delete from st01_crm_business_product where r_id in 
+        <foreach item="rId" collection="array" open="(" separator="," close=")">
+            #{rId}
+        </foreach>
+    </delete>
+
+    <delete id="deletest01_crm_business_productByBusinessIds" parameterType="String">
+        delete from st01_crm_business_product where business_id in
+        <foreach item="businessId" collection="array" open="(" separator="," close=")">
+            #{businessId}
+        </foreach>
+    </delete>
+
+</mapper>

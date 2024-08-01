@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_customerMapper">
+    
+    <resultMap type="st01_crm_customer" id="st01_crm_customerResult">
+        <result property="customerId"    column="customer_id"    />
+        <result property="customerName"    column="customer_name"    />
+        <result property="nature"    column="nature"    />
+        <result property="source"    column="source"    />
+        <result property="industry"    column="industry"    />
+        <result property="grade"    column="grade"    />
+        <result property="stage"    column="stage"    />
+        <result property="website"    column="website"    />
+        <result property="type"    column="type"    />
+        <result property="introduction"    column="introduction"    />
+        <result property="importance"    column="importance"    />
+        <result property="lockStatus"    column="lock_status"    />
+        <result property="address"    column="address"    />
+        <result property="provinceId"    column="province_id"    />
+        <result property="cityId"    column="city_id"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="ownerUserId"    column="owner_user_id"    />
+        <result property="saUserId"    column="sa_user_id"    />
+        <result property="nextContactTime"    column="next_contact_time"    />
+        <result property="deltag"    column="deltag"    />
+        <result property="remark"    column="remark"    />
+        <result property="createdBy"    column="created_by"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedBy"    column="updated_by"    />
+        <result property="updatedTime"    column="updated_time"    />
+    </resultMap>
+
+    <sql id="selectst01_crm_customerVo">
+        select customer_id, customer_name, nature, source, industry, grade, stage, website, type, introduction, importance, lock_status, address, province_id, city_id, area_id, owner_user_id, sa_user_id, deltag, remark, created_by, created_time, updated_by, updated_time from st01_crm_customer
+    </sql>
+
+    <select id="selectst01_crm_customerList" parameterType="st01_crm_customer" resultMap="st01_crm_customerResult">
+        <include refid="selectst01_crm_customerVo"/>
+        <where>  
+            <if test="customerName != null  and customerName != ''"> and customer_name like concat('%', #{customerName}, '%')</if>
+            <if test="nature != null  and nature != ''"> and nature = #{nature}</if>
+            <if test="source != null  and source != ''"> and source = #{source}</if>
+            <if test="industry != null  and industry != ''"> and industry = #{industry}</if>
+            <if test="grade != null  and grade != ''"> and grade = #{grade}</if>
+            <if test="stage != null  and stage != ''"> and stage = #{stage}</if>
+            <if test="website != null  and website != ''"> and website = #{website}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="introduction != null  and introduction != ''"> and introduction = #{introduction}</if>
+            <if test="importance != null  and importance != ''"> and importance = #{importance}</if>
+            <if test="lockStatus != null  and lockStatus != ''"> and lock_status = #{lockStatus}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="provinceId != null  and provinceId != ''"> and province_id = #{provinceId}</if>
+            <if test="cityId != null  and cityId != ''"> and city_id = #{cityId}</if>
+            <if test="areaId != null  and areaId != ''"> and area_id = #{areaId}</if>
+            <if test="ownerUserId != null  and ownerUserId != ''"> and owner_user_id = #{ownerUserId}</if>
+            <if test="saUserId != null  and saUserId != ''"> and sa_user_id = #{saUserId}</if>
+            <if test="deltag != null  and deltag != ''"> and deltag = #{deltag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and created_by = #{createdBy}</if>
+            <if test="createdTime != null  and createdTime != ''"> and created_time = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and updated_by = #{updatedBy}</if>
+            <if test="updatedTime != null  and updatedTime != ''"> and updated_time = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectst01_crm_customerByCustomerId" parameterType="String" resultMap="st01_crm_customerResult">
+        <include refid="selectst01_crm_customerVo"/>
+        where customer_id = #{customerId}
+    </select>
+        
+    <insert id="insertst01_crm_customer" parameterType="st01_crm_customer">
+        insert into st01_crm_customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">customer_id,</if>
+            <if test="customerName != null">customer_name,</if>
+            <if test="nature != null">nature,</if>
+            <if test="source != null">source,</if>
+            <if test="industry != null">industry,</if>
+            <if test="grade != null">grade,</if>
+            <if test="stage != null">stage,</if>
+            <if test="website != null">website,</if>
+            <if test="type != null">type,</if>
+            <if test="introduction != null">introduction,</if>
+            <if test="importance != null">importance,</if>
+            <if test="lockStatus != null">lock_status,</if>
+            <if test="address != null">address,</if>
+            <if test="provinceId != null">province_id,</if>
+            <if test="cityId != null">city_id,</if>
+            <if test="areaId != null">area_id,</if>
+            <if test="ownerUserId != null">owner_user_id,</if>
+            <if test="saUserId != null">sa_user_id,</if>
+            <if test="nextContactTime != null">next_contact_time,</if>
+            <if test="deltag != null">deltag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="updatedTime != null">updated_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">#{customerId},</if>
+            <if test="customerName != null">#{customerName},</if>
+            <if test="nature != null">#{nature},</if>
+            <if test="source != null">#{source},</if>
+            <if test="industry != null">#{industry},</if>
+            <if test="grade != null">#{grade},</if>
+            <if test="stage != null">#{stage},</if>
+            <if test="website != null">#{website},</if>
+            <if test="type != null">#{type},</if>
+            <if test="introduction != null">#{introduction},</if>
+            <if test="importance != null">#{importance},</if>
+            <if test="lockStatus != null">#{lockStatus},</if>
+            <if test="address != null">#{address},</if>
+            <if test="provinceId != null">#{provinceId},</if>
+            <if test="cityId != null">#{cityId},</if>
+            <if test="areaId != null">#{areaId},</if>
+            <if test="ownerUserId != null">#{ownerUserId},</if>
+            <if test="saUserId != null">#{saUserId},</if>
+            <if test="nextContactTime != null">#{nextContactTime},</if>
+            <if test="deltag != null">#{deltag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_customer" parameterType="st01_crm_customer">
+        update st01_crm_customer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customerName != null">customer_name = #{customerName},</if>
+            <if test="nature != null">nature = #{nature},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="industry != null">industry = #{industry},</if>
+            <if test="grade != null">grade = #{grade},</if>
+            <if test="stage != null">stage = #{stage},</if>
+            <if test="website != null">website = #{website},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="introduction != null">introduction = #{introduction},</if>
+            <if test="importance != null">importance = #{importance},</if>
+            <if test="lockStatus != null">lock_status = #{lockStatus},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="provinceId != null">province_id = #{provinceId},</if>
+            <if test="cityId != null">city_id = #{cityId},</if>
+            <if test="areaId != null">area_id = #{areaId},</if>
+            <if test="ownerUserId != null">owner_user_id = #{ownerUserId},</if>
+            <if test="saUserId != null">sa_user_id = #{saUserId},</if>
+            <if test="nextContactTime != null">next_contact_time = #{nextContactTime},</if>
+            <if test="deltag != null">deltag = #{deltag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+        </trim>
+        where customer_id = #{customerId}
+    </update>
+
+    <delete id="deletest01_crm_customerByCustomerId" parameterType="String">
+        delete from st01_crm_customer where customer_id = #{customerId}
+    </delete>
+
+    <delete id="deletest01_crm_customerByCustomerIds" parameterType="String">
+        delete from st01_crm_customer where customer_id in 
+        <foreach item="customerId" collection="array" open="(" separator="," close=")">
+            #{customerId}
+        </foreach>
+    </delete>
+</mapper>

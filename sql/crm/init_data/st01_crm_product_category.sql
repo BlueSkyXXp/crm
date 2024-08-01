@@ -1,0 +1,2 @@
+INSERT INTO stone.st01_crm_product_category (category_id, category_name, sort, created_by, created_time, updated_by, updated_time) VALUES ('820782723508428802', '测试2', '1', 'admin', '2024-05-11 20:30:28', null, null);
+INSERT INTO stone.st01_crm_product_category (category_id, category_name, sort, created_by, created_time, updated_by, updated_time) VALUES ('820782828668018690', '测试1', '2', 'admin', '2024-05-11 20:30:53', null, null);

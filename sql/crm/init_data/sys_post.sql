@@ -1,0 +1,4 @@
+INSERT INTO stone.sys_post (post_code, post_name, post_sort, status, create_by, create_time, update_by, update_time, remark) VALUES ('ceo', '区长', 1, '0', 'admin', '2024-04-14 20:09:38', 'superadmin', '2024-07-01 11:50:26', '');
+INSERT INTO stone.sys_post (post_code, post_name, post_sort, status, create_by, create_time, update_by, update_time, remark) VALUES ('se', '主管', 2, '0', 'admin', '2024-04-14 20:09:39', 'superadmin', '2024-07-01 11:50:05', '');
+INSERT INTO stone.sys_post (post_code, post_name, post_sort, status, create_by, create_time, update_by, update_time, remark) VALUES ('hr', '行政管理', 3, '0', 'admin', '2024-04-14 20:09:40', 'superadmin', '2024-07-01 11:50:51', '');
+INSERT INTO stone.sys_post (post_code, post_name, post_sort, status, create_by, create_time, update_by, update_time, remark) VALUES ('user', '客户经理', 4, '0', 'admin', '2024-04-14 20:09:41', 'superadmin', '2024-07-01 11:51:02', '');

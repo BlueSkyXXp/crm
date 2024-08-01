@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_contactsMapper">
+    
+    <resultMap type="st01_crm_contacts" id="st01_crm_contactsResult">
+        <result property="contactsId"    column="contacts_id"    />
+        <result property="contactsName"    column="contacts_name"    />
+        <result property="mobile"    column="mobile"    />
+        <result property="telephone"    column="telephone"    />
+        <result property="department"    column="department"    />
+        <result property="duties"    column="duties"    />
+        <result property="sex"    column="sex"    />
+        <result property="birthday"    column="birthday"    />
+        <result property="mailbox"    column="mailbox"    />
+        <result property="weChat"    column="weChat"    />
+        <result property="qq"    column="qq"    />
+        <result property="address"    column="address"    />
+        <result property="intimacy"    column="intimacy"    />
+        <result property="important"    column="important"    />
+        <result property="nextContactTime"    column="next_contact_time"    />
+        <result property="dc"    column="dc"    />
+        <result property="dm"    column="dm"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="deltag"    column="deltag"    />
+        <result property="remark"    column="remark"    />
+        <result property="ownerUserId"    column="owner_user_id"    />
+        <result property="createdBy"    column="created_by"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedBy"    column="updated_by"    />
+        <result property="updatedTime"    column="updated_time"    />
+    </resultMap>
+
+    <sql id="selectst01_crm_contactsVo">
+        select contacts_id, contacts_name, mobile, telephone, department, duties, sex, birthday, mailbox, weChat, qq, address, intimacy, important, next_contact_time, dc, dm, customer_id, deltag, remark, owner_user_id, created_by, created_time, updated_by, updated_time from st01_crm_contacts
+    </sql>
+
+    <select id="selectst01_crm_contactsList" parameterType="st01_crm_contacts" resultMap="st01_crm_contactsResult">
+        <include refid="selectst01_crm_contactsVo"/>
+        <where>  
+            <if test="contactsName != null  and contactsName != ''"> and contacts_name like concat('%', #{contactsName}, '%')</if>
+            <if test="mobile != null  and mobile != ''"> and mobile = #{mobile}</if>
+            <if test="telephone != null  and telephone != ''"> and telephone = #{telephone}</if>
+            <if test="department != null  and department != ''"> and department = #{department}</if>
+            <if test="duties != null  and duties != ''"> and duties = #{duties}</if>
+            <if test="sex != null  and sex != ''"> and sex = #{sex}</if>
+            <if test="birthday != null  and birthday != ''"> and birthday = #{birthday}</if>
+            <if test="mailbox != null  and mailbox != ''"> and mailbox = #{mailbox}</if>
+            <if test="weChat != null  and weChat != ''"> and weChat = #{weChat}</if>
+            <if test="qq != null  and qq != ''"> and qq = #{qq}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="intimacy != null  and intimacy != ''"> and intimacy = #{intimacy}</if>
+            <if test="important != null  and important != ''"> and important = #{important}</if>
+            <if test="nextContactTime != null  and nextContactTime != ''"> and next_contact_time = #{nextContactTime}</if>
+            <if test="dc != null  and dc != ''"> and dc = #{dc}</if>
+            <if test="dm != null  and dm != ''"> and dm = #{dm}</if>
+            <if test="customerId != null  and customerId != ''"> and customer_id = #{customerId}</if>
+            <if test="deltag != null  and deltag != ''"> and deltag = #{deltag}</if>
+            <if test="ownerUserId != null  and ownerUserId != ''"> and owner_user_id = #{ownerUserId}</if>
+            <if test="createdBy != null  and createdBy != ''"> and created_by = #{createdBy}</if>
+            <if test="createdTime != null  and createdTime != ''"> and created_time = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and updated_by = #{updatedBy}</if>
+            <if test="updatedTime != null  and updatedTime != ''"> and updated_time = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectst01_crm_contactsByContactsId" parameterType="String" resultMap="st01_crm_contactsResult">
+        <include refid="selectst01_crm_contactsVo"/>
+        where contacts_id = #{contactsId}
+    </select>
+        
+    <insert id="insertst01_crm_contacts" parameterType="st01_crm_contacts">
+        insert into st01_crm_contacts
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="contactsId != null">contacts_id,</if>
+            <if test="contactsName != null">contacts_name,</if>
+            <if test="mobile != null">mobile,</if>
+            <if test="telephone != null">telephone,</if>
+            <if test="department != null">department,</if>
+            <if test="duties != null">duties,</if>
+            <if test="sex != null">sex,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="mailbox != null">mailbox,</if>
+            <if test="weChat != null">weChat,</if>
+            <if test="qq != null">qq,</if>
+            <if test="address != null">address,</if>
+            <if test="intimacy != null">intimacy,</if>
+            <if test="important != null">important,</if>
+            <if test="nextContactTime != null">next_contact_time,</if>
+            <if test="dc != null">dc,</if>
+            <if test="dm != null">dm,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="deltag != null">deltag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="ownerUserId != null">owner_user_id,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="updatedTime != null">updated_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="contactsId != null">#{contactsId},</if>
+            <if test="contactsName != null">#{contactsName},</if>
+            <if test="mobile != null">#{mobile},</if>
+            <if test="telephone != null">#{telephone},</if>
+            <if test="department != null">#{department},</if>
+            <if test="duties != null">#{duties},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="birthday != null">#{birthday},</if>
+            <if test="mailbox != null">#{mailbox},</if>
+            <if test="weChat != null">#{weChat},</if>
+            <if test="qq != null">#{qq},</if>
+            <if test="address != null">#{address},</if>
+            <if test="intimacy != null">#{intimacy},</if>
+            <if test="important != null">#{important},</if>
+            <if test="nextContactTime != null">#{nextContactTime},</if>
+            <if test="dc != null">#{dc},</if>
+            <if test="dm != null">#{dm},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="deltag != null">#{deltag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="ownerUserId != null">#{ownerUserId},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_contacts" parameterType="st01_crm_contacts">
+        update st01_crm_contacts
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="contactsName != null">contacts_name = #{contactsName},</if>
+            <if test="mobile != null">mobile = #{mobile},</if>
+            <if test="telephone != null">telephone = #{telephone},</if>
+            <if test="department != null">department = #{department},</if>
+            <if test="duties != null">duties = #{duties},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="mailbox != null">mailbox = #{mailbox},</if>
+            <if test="weChat != null">weChat = #{weChat},</if>
+            <if test="qq != null">qq = #{qq},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="intimacy != null">intimacy = #{intimacy},</if>
+            <if test="important != null">important = #{important},</if>
+            <if test="nextContactTime != null">next_contact_time = #{nextContactTime},</if>
+            <if test="dc != null">dc = #{dc},</if>
+            <if test="dm != null">dm = #{dm},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="deltag != null">deltag = #{deltag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="ownerUserId != null">owner_user_id = #{ownerUserId},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+        </trim>
+        where contacts_id = #{contactsId}
+    </update>
+
+    <delete id="deletest01_crm_contactsByContactsId" parameterType="String">
+        delete from st01_crm_contacts where contacts_id = #{contactsId}
+    </delete>
+
+    <delete id="deletest01_crm_contactsByContactsIds" parameterType="String">
+        delete from st01_crm_contacts where contacts_id in 
+        <foreach item="contactsId" collection="array" open="(" separator="," close=")">
+            #{contactsId}
+        </foreach>
+    </delete>
+</mapper>

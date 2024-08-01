@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_contractMapper">
+    
+    <resultMap type="st01_crm_contract" id="st01_crm_contractResult">
+        <result property="contractId"    column="contract_id"    />
+        <result property="contractName"    column="contract_name"    />
+        <result property="money"    column="money"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="customerName"    column="customer_name"    />
+        <result property="contactsId"    column="contacts_id"    />
+        <result property="contactsName"    column="contacts_name"    />
+        <result property="businessId"    column="business_id"    />
+        <result property="businessName"    column="business_name"    />
+        <result property="types"    column="types"    />
+        <result property="orderDate"    column="order_date"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="checkStatus"    column="check_status"    />
+        <result property="examineRecordId"    column="examine_record_id"    />
+        <result property="discountRate"    column="discount_rate"    />
+        <result property="totalPrice"    column="total_price"    />
+        <result property="paymentType"    column="payment_type"    />
+        <result property="roUserId"    column="ro_user_id"    />
+        <result property="rwUserId"    column="rw_user_id"    />
+        <result property="remark"    column="remark"    />
+        <result property="updatedBy"    column="updated_by"    />
+        <result property="createdBy"    column="created_by"    />
+        <result property="ownerUserId"    column="owner_user_id"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedTime"    column="updated_time"    />
+    </resultMap>
+
+    <sql id="selectst01_crm_contractVo">
+        select contract_id, contract_name, money, customer_id,customer_name, contacts_id,contacts_name, business_id,business_name, types, order_date, start_time, end_time, check_status, examine_record_id, discount_rate, total_price, payment_type, ro_user_id, rw_user_id, remark, updated_by, created_by, owner_user_id, created_time, updated_time from st01_crm_contract
+    </sql>
+
+    <select id="selectst01_crm_contractList" parameterType="st01_crm_contract" resultMap="st01_crm_contractResult">
+        <include refid="selectst01_crm_contractVo"/>
+        <where>  
+            <if test="contractName != null  and contractName != ''"> and contract_name like concat('%', #{contractName}, '%')</if>
+            <if test="customerId != null  and customerId != ''"> and customer_id = #{customerId}</if>
+            <if test="businessId != null  and businessId != ''"> and business_id = #{businessId}</if>
+        </where>
+    </select>
+    
+    <select id="selectst01_crm_contractByContractId" parameterType="String" resultMap="st01_crm_contractResult">
+        <include refid="selectst01_crm_contractVo"/>
+        where contract_id = #{contractId}
+    </select>
+        
+    <insert id="insertst01_crm_contract" parameterType="st01_crm_contract">
+        insert into st01_crm_contract
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">contract_id,</if>
+            <if test="contractName != null">contract_name,</if>
+            <if test="money != null">money,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="contactsId != null">contacts_id,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="customerName != null">customer_name,</if>
+            <if test="contactsName != null">contacts_name,</if>
+            <if test="businessName != null">business_name,</if>
+            <if test="types != null">types,</if>
+            <if test="orderDate != null">order_date,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="checkStatus != null">check_status,</if>
+            <if test="examineRecordId != null">examine_record_id,</if>
+            <if test="discountRate != null">discount_rate,</if>
+            <if test="totalPrice != null">total_price,</if>
+            <if test="paymentType != null">payment_type,</if>
+            <if test="roUserId != null">ro_user_id,</if>
+            <if test="rwUserId != null">rw_user_id,</if>
+            <if test="remark != null">remark,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="ownerUserId != null">owner_user_id,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedTime != null">updated_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">#{contractId},</if>
+            <if test="contractName != null">#{contractName},</if>
+            <if test="money != null">#{money},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="contactsId != null">#{contactsId},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="customerName != null">#{customerName},</if>
+            <if test="contactsName != null">#{contactsName},</if>
+            <if test="businessName != null">#{businessName},</if>
+            <if test="types != null">#{types},</if>
+            <if test="orderDate != null">#{orderDate},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="checkStatus != null">#{checkStatus},</if>
+            <if test="examineRecordId != null">#{examineRecordId},</if>
+            <if test="discountRate != null">#{discountRate},</if>
+            <if test="totalPrice != null">#{totalPrice},</if>
+            <if test="paymentType != null">#{paymentType},</if>
+            <if test="roUserId != null">#{roUserId},</if>
+            <if test="rwUserId != null">#{rwUserId},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="ownerUserId != null">#{ownerUserId},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_contract" parameterType="st01_crm_contract">
+        update st01_crm_contract
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="contractName != null">contract_name = #{contractName},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="contactsId != null">contacts_id = #{contactsId},</if>
+            <if test="businessId != null">business_id = #{businessId},</if>
+            <if test="customerName != null">customer_name = #{customerName},</if>
+            <if test="contactsName != null">contacts_name = #{contactsName},</if>
+            <if test="businessName != null">business_name = #{businessName},</if>
+            <if test="types != null">types = #{types},</if>
+            <if test="orderDate != null">order_date = #{orderDate},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
+            <if test="examineRecordId != null">examine_record_id = #{examineRecordId},</if>
+            <if test="discountRate != null">discount_rate = #{discountRate},</if>
+            <if test="totalPrice != null">total_price = #{totalPrice},</if>
+            <if test="paymentType != null">payment_type = #{paymentType},</if>
+            <if test="roUserId != null">ro_user_id = #{roUserId},</if>
+            <if test="rwUserId != null">rw_user_id = #{rwUserId},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="ownerUserId != null">owner_user_id = #{ownerUserId},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+        </trim>
+        where contract_id = #{contractId}
+    </update>
+
+    <delete id="deletest01_crm_contractByContractId" parameterType="String">
+        delete from st01_crm_contract where contract_id = #{contractId}
+    </delete>
+
+    <delete id="deletest01_crm_contractByContractIds" parameterType="String">
+        delete from st01_crm_contract where contract_id in 
+        <foreach item="contractId" collection="array" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </delete>
+</mapper>

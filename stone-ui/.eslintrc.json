@@ -1,0 +1,23 @@
+{
+  "extends": "@shiroringo",
+  "rules": {
+    "eqeqeq": "off",
+    "vue/eqeqeq": "off",
+    "prefer-const": "off",
+    "no-fallthrough": "off",
+    "object-shorthand": "off",
+    "vue/valid-v-show": "off",
+    "no-unsafe-finally": "off",
+    "no-mixed-operators": "off",
+    "vue/prefer-template": "off",
+    "vue/no-lone-template": "off",
+    "no-unused-expressions": "off",
+    "array-callback-return": "off",
+    "no-useless-computed-key": "off",
+    "vue/no-constant-condition": "off",
+    "no-async-promise-executor": "off",
+    "vue/v-on-event-hyphenation": "off",
+    "vue/one-component-per-file": "off",
+    "prefer-promise-reject-errors": "off"
+  }
+}

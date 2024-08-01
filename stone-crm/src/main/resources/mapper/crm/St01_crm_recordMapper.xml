@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_recordMapper">
+    
+    <resultMap type="st01_crm_record" id="st01_crm_recordResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="types"    column="types"    />
+        <result property="typesId"    column="types_id"    />
+        <result property="content"    column="content"    />
+        <result property="category"    column="category"    />
+        <result property="businessIds"    column="business_ids"    />
+        <result property="contactsIds"    column="contacts_ids"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="nextTime"    column="next_time"    />
+        <result property="recordTime"    column="record_time"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedTime"    column="updated_time"    />
+        <result property="createdBy"    column="created_by"    />
+    </resultMap>
+
+    <sql id="selectst01_crm_recordVo">
+        select record_id, types, types_id, content, category, business_ids, contacts_ids, customer_id, next_time, record_time, created_time, updated_time, created_by from st01_crm_record
+    </sql>
+
+    <select id="selectst01_crm_recordList" parameterType="st01_crm_record" resultMap="st01_crm_recordResult">
+        <include refid="selectst01_crm_recordVo"/>
+        <where>  
+            <if test="types != null  and types != ''"> and types = #{types}</if>
+            <if test="typesId != null  and typesId != ''"> and types_id = #{typesId}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="category != null  and category != ''"> and category = #{category}</if>
+            <if test="businessIds != null  and businessIds != ''"> and business_ids = #{businessIds}</if>
+            <if test="contactsIds != null  and contactsIds != ''"> and contacts_ids = #{contactsIds}</if>
+            <if test="customerId != null  and customerId != ''"> and customer_id = #{customerId}</if>
+            <if test="nextTime != null  and nextTime != ''"> and next_time = #{nextTime}</if>
+            <if test="recordTime != null  and recordTime != ''"> and record_time = #{recordTime}</if>
+            <if test="updatedTime != null  and updatedTime != ''"> and updated_time = #{updatedTime}</if>
+            <if test="createdBy != null  and createdBy != ''"> and created_by = #{createdBy}</if>
+        </where>
+    </select>
+    
+    <select id="selectst01_crm_recordByRecordId" parameterType="String" resultMap="st01_crm_recordResult">
+        <include refid="selectst01_crm_recordVo"/>
+        where record_id = #{recordId}
+    </select>
+        
+    <insert id="insertst01_crm_record" parameterType="st01_crm_record">
+        insert into st01_crm_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recordId != null">record_id,</if>
+            <if test="types != null">types,</if>
+            <if test="typesId != null">types_id,</if>
+            <if test="content != null">content,</if>
+            <if test="category != null">category,</if>
+            <if test="businessIds != null">business_ids,</if>
+            <if test="contactsIds != null">contacts_ids,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="nextTime != null">next_time,</if>
+            <if test="recordTime != null">record_time,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedTime != null">updated_time,</if>
+            <if test="createdBy != null">created_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recordId != null">#{recordId},</if>
+            <if test="types != null">#{types},</if>
+            <if test="typesId != null">#{typesId},</if>
+            <if test="content != null">#{content},</if>
+            <if test="category != null">#{category},</if>
+            <if test="businessIds != null">#{businessIds},</if>
+            <if test="contactsIds != null">#{contactsIds},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="nextTime != null">#{nextTime},</if>
+            <if test="recordTime != null">#{recordTime},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_record" parameterType="st01_crm_record">
+        update st01_crm_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="types != null">types = #{types},</if>
+            <if test="typesId != null">types_id = #{typesId},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="businessIds != null">business_ids = #{businessIds},</if>
+            <if test="contactsIds != null">contacts_ids = #{contactsIds},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="nextTime != null">next_time = #{nextTime},</if>
+            <if test="recordTime != null">record_time = #{recordTime},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deletest01_crm_recordByRecordId" parameterType="String">
+        delete from st01_crm_record where record_id = #{recordId}
+    </delete>
+
+    <delete id="deletest01_crm_recordByRecordIds" parameterType="String">
+        delete from st01_crm_record where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>

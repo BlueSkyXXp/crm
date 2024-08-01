@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St02CrmReceiveCytMapper">
+
+    <resultMap type="St02CrmReceiveCyt" id="St02CrmReceiveCytResult">
+        <result property="id"    column="id"    />
+        <result property="source"    column="source"    />
+        <result property="name"    column="name"    />
+        <result property="phone"    column="phone"    />
+        <result property="age"    column="age"    />
+        <result property="gender"    column="gender"    />
+        <result property="ip"    column="ip"    />
+        <result property="city"    column="city"    />
+        <result property="cityCode"    column="city_code"    />
+        <result property="profession"    column="profession"    />
+        <result property="loanAmount"    column="loan_amount"    />
+        <result property="sesameSeed"    column="sesame_seed"    />
+        <result property="socialSecurity"    column="social_security"    />
+        <result property="providentFund"    column="provident_fund"    />
+        <result property="vehicle"    column="vehicle"    />
+        <result property="house"    column="house"    />
+    </resultMap>
+
+    <sql id="selectSt02CrmReceiveCytVo">
+        select id, source, name, phone, age, gender, ip, city, city_code, profession, loan_amount, sesame_seed, social_security, provident_fund, vehicle, house from St02_crm_receive_CYT
+    </sql>
+
+    <select id="selectSt02CrmReceiveCytList" parameterType="St02CrmReceiveCyt" resultMap="St02CrmReceiveCytResult">
+        <include refid="selectSt02CrmReceiveCytVo"/>
+        <where>
+            <if test="source != null  and source != ''"> and source = #{source}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="age != null  and age != ''"> and age = #{age}</if>
+            <if test="gender != null "> and gender = #{gender}</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="cityCode != null  and cityCode != ''"> and city_code = #{cityCode}</if>
+            <if test="profession != null "> and profession = #{profession}</if>
+            <if test="loanAmount != null "> and loan_amount = #{loanAmount}</if>
+            <if test="sesameSeed != null "> and sesame_seed = #{sesameSeed}</if>
+            <if test="socialSecurity != null "> and social_security = #{socialSecurity}</if>
+            <if test="providentFund != null "> and provident_fund = #{providentFund}</if>
+            <if test="vehicle != null "> and vehicle = #{vehicle}</if>
+            <if test="house != null "> and house = #{house}</if>
+        </where>
+    </select>
+
+    <select id="selectSt02CrmReceiveCytById" parameterType="Long" resultMap="St02CrmReceiveCytResult">
+        <include refid="selectSt02CrmReceiveCytVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSt02CrmReceiveCyt" parameterType="St02CrmReceiveCyt" useGeneratedKeys="true" keyProperty="id">
+        insert into St02_crm_receive_CYT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="source != null">source,</if>
+            <if test="name != null">name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="age != null">age,</if>
+            <if test="gender != null">gender,</if>
+            <if test="ip != null">ip,</if>
+            <if test="city != null">city,</if>
+            <if test="cityCode != null">city_code,</if>
+            <if test="profession != null">profession,</if>
+            <if test="loanAmount != null">loan_amount,</if>
+            <if test="sesameSeed != null">sesame_seed,</if>
+            <if test="socialSecurity != null">social_security,</if>
+            <if test="providentFund != null">provident_fund,</if>
+            <if test="vehicle != null">vehicle,</if>
+            <if test="house != null">house,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="source != null">#{source},</if>
+            <if test="name != null">#{name},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="age != null">#{age},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="ip != null">#{ip},</if>
+            <if test="city != null">#{city},</if>
+            <if test="cityCode != null">#{cityCode},</if>
+            <if test="profession != null">#{profession},</if>
+            <if test="loanAmount != null">#{loanAmount},</if>
+            <if test="sesameSeed != null">#{sesameSeed},</if>
+            <if test="socialSecurity != null">#{socialSecurity},</if>
+            <if test="providentFund != null">#{providentFund},</if>
+            <if test="vehicle != null">#{vehicle},</if>
+            <if test="house != null">#{house},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSt02CrmReceiveCyt" parameterType="St02CrmReceiveCyt">
+        update St02_crm_receive_CYT
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="source != null">source = #{source},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="ip != null">ip = #{ip},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="cityCode != null">city_code = #{cityCode},</if>
+            <if test="profession != null">profession = #{profession},</if>
+            <if test="loanAmount != null">loan_amount = #{loanAmount},</if>
+            <if test="sesameSeed != null">sesame_seed = #{sesameSeed},</if>
+            <if test="socialSecurity != null">social_security = #{socialSecurity},</if>
+            <if test="providentFund != null">provident_fund = #{providentFund},</if>
+            <if test="vehicle != null">vehicle = #{vehicle},</if>
+            <if test="house != null">house = #{house},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSt02CrmReceiveCytById" parameterType="Long">
+        delete from St02_crm_receive_CYT where id = #{id}
+    </delete>
+
+    <delete id="deleteSt02CrmReceiveCytByIds" parameterType="String">
+        delete from St02_crm_receive_CYT where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

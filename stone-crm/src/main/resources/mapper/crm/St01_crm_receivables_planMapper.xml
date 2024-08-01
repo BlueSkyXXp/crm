@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.crm.mapper.St01_crm_receivables_planMapper">
+    
+    <resultMap type="st01_crm_receivables_plan" id="st01_crm_receivables_planResult">
+        <result property="planId"    column="plan_id"    />
+        <result property="num"    column="num"    />
+        <result property="receivablesId"    column="receivables_id"    />
+        <result property="contractId"    column="contract_id"    />
+        <result property="contractName"    column="contract_name"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="status"    column="status"    />
+        <result property="money"    column="money"    />
+        <result property="returnDate"    column="return_date"    />
+        <result property="returnType"    column="return_type"    />
+        <result property="remind"    column="remind"    />
+        <result property="remindDate"    column="remind_date"    />
+        <result property="remark"    column="remark"    />
+        <result property="createdBy"    column="created_by"    />
+        <result property="ownerUserId"    column="owner_user_id"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedBy"    column="updated_by"    />
+        <result property="updatedTime"    column="updated_time"    />
+    </resultMap>
+
+    <sql id="selectst01_crm_receivables_planVo">
+        select plan_id, num, receivables_id, contract_id, customer_id, status, money, return_date, return_type, remind, remind_date, remark, created_by, owner_user_id, created_time, updated_by, updated_time from st01_crm_receivables_plan
+    </sql>
+
+    <select id="selectst01_crm_receivables_planList" parameterType="st01_crm_receivables_plan" resultMap="st01_crm_receivables_planResult">
+        select t.*,t1.contract_name from st01_crm_receivables_plan t left join st01_crm_contract t1
+        on t.contract_id=t1.contract_id
+        <where>  
+            <if test="num != null  and num != ''"> and t.num = #{num}</if>
+            <if test="receivablesId != null  and receivablesId != ''"> and t.receivables_id = #{receivablesId}</if>
+            <if test="contractId != null  and contractId != ''"> and t.contract_id = #{contractId}</if>
+            <if test="customerId != null  and customerId != ''"> and t.customer_id = #{customerId}</if>
+            <if test="status != null  and status != ''"> and t.status = #{status}</if>
+            <if test="money != null "> and t.money = #{money}</if>
+            <if test="returnDate != null  and returnDate != ''"> and t.return_date = #{returnDate}</if>
+            <if test="returnType != null  and returnType != ''"> and t.return_type = #{returnType}</if>
+            <if test="remind != null  and remind != ''"> and t.remind = #{remind}</if>
+            <if test="remindDate != null  and remindDate != ''"> and t.remind_date = #{remindDate}</if>
+            <if test="createdBy != null  and createdBy != ''"> and t.created_by = #{createdBy}</if>
+            <if test="ownerUserId != null  and ownerUserId != ''"> and t.owner_user_id = #{ownerUserId}</if>
+            <if test="createdTime != null  and createdTime != ''"> and t.created_time = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and t.updated_by = #{updatedBy}</if>
+            <if test="updatedTime != null  and updatedTime != ''"> and t.updated_time = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectst01_crm_receivables_planByPlanId" parameterType="String" resultMap="st01_crm_receivables_planResult">
+        <include refid="selectst01_crm_receivables_planVo"/>
+        where plan_id = #{planId}
+    </select>
+        
+    <insert id="insertst01_crm_receivables_plan" parameterType="st01_crm_receivables_plan">
+        insert into st01_crm_receivables_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planId != null">plan_id,</if>
+            <if test="num != null">num,</if>
+            <if test="receivablesId != null">receivables_id,</if>
+            <if test="contractId != null">contract_id,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="status != null">status,</if>
+            <if test="money != null">money,</if>
+            <if test="returnDate != null">return_date,</if>
+            <if test="returnType != null">return_type,</if>
+            <if test="remind != null">remind,</if>
+            <if test="remindDate != null">remind_date,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="ownerUserId != null">owner_user_id,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="updatedTime != null">updated_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planId != null">#{planId},</if>
+            <if test="num != null">#{num},</if>
+            <if test="receivablesId != null">#{receivablesId},</if>
+            <if test="contractId != null">#{contractId},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="money != null">#{money},</if>
+            <if test="returnDate != null">#{returnDate},</if>
+            <if test="returnType != null">#{returnType},</if>
+            <if test="remind != null">#{remind},</if>
+            <if test="remindDate != null">#{remindDate},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="ownerUserId != null">#{ownerUserId},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatest01_crm_receivables_plan" parameterType="st01_crm_receivables_plan">
+        update st01_crm_receivables_plan
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="num != null">num = #{num},</if>
+            <if test="receivablesId != null">receivables_id = #{receivablesId},</if>
+            <if test="contractId != null">contract_id = #{contractId},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="returnDate != null">return_date = #{returnDate},</if>
+            <if test="returnType != null">return_type = #{returnType},</if>
+            <if test="remind != null">remind = #{remind},</if>
+            <if test="remindDate != null">remind_date = #{remindDate},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="ownerUserId != null">owner_user_id = #{ownerUserId},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+        </trim>
+        where plan_id = #{planId}
+    </update>
+
+    <delete id="deletest01_crm_receivables_planByPlanId" parameterType="String">
+        delete from st01_crm_receivables_plan where plan_id = #{planId}
+    </delete>
+
+    <delete id="deletest01_crm_receivables_planByPlanIds" parameterType="String">
+        delete from st01_crm_receivables_plan where plan_id in 
+        <foreach item="planId" collection="array" open="(" separator="," close=")">
+            #{planId}
+        </foreach>
+    </delete>
+</mapper>
